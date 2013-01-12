@@ -199,13 +199,13 @@ if (!isset($use_corpus_categories_on_homepage))
 	$use_corpus_categories_on_homepage = false;
 
 if (!isset($css_path_for_homepage))
-	$css_path_for_homepage = "../css/CQPweb.css";
+	$css_path_for_homepage = "../css/shotgunandshells_style.css";
 
 if (!isset($css_path_for_adminpage))
 	$css_path_for_adminpage = "../css/CQPweb-red.css";
 
 if (!isset($homepage_welcome_message))
-	$homepage_welcome_message = "Welcome to CQPweb!";
+	$homepage_welcome_message = "Hebrew CQP web!";
 
 if (!isset($searchpage_corpus_name_suffix))
 	$searchpage_corpus_name_suffix = ': <em>powered by CQPweb</em>';

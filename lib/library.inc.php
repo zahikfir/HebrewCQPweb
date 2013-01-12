@@ -1230,6 +1230,8 @@ function print_footer($link = 'help')
 			</td>
 		</tr>
 	</table>
+	<p>Copyright (c) 2012 HebrewCQPweb.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org">FCT</a>.</p>
+	</div>
 	<script language="JavaScript" type="text/javascript" src="<? echo $diverter; ?>lib/javascript/wz_tooltip.js">
 	</script>
 	</body>
