@@ -49,7 +49,7 @@
 
 /* initialise variables from settings files  */
 
-require_once("settings.inc.php");
+require_once ("settings.inc.php");
 require_once("../lib/defaults.inc.php");
 
 
@@ -106,7 +106,21 @@ $thisQ = ( isset($_GET["thisQ"]) ? $_GET["thisQ"] : 'search' );
 connect_global_mysql();
 
 
+if ($use_corpus_categories_on_homepage)
+{
+	/* get a list of categories */
+	$categories = list_corpus_categories();
 
+	/* how many categories? if only one, it is either uncategorised or a single assigned cat: ergo don't use cats */
+	$n = count($categories);
+	if ($n < 2)
+		$use_corpus_categories_on_homepage = false;
+}
+else
+{
+	/* empty string: to make the loops cycle once */
+	$categories = array(0=>'');
+}
 
 
 /* before anything else */
@@ -117,326 +131,391 @@ header('Content-Type: text/html; charset=utf-8');
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 echo '<title>' . $corpus_title . ' -- CQPweb</title>';
+echo '<link href=\'http://fonts.googleapis.com/css?family=Arvo\' rel=\'stylesheet\' type=\'text/css\'>';
 echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 ?>
 <script type="text/javascript" src="../lib/javascript/cqpweb-clientside.js"></script> 
 </head>
 <body>
-
-<table class="concordtable" width="100%">
-	<tr>
-		<td valign="top">
-
-<?php
-
-
-
-
-
-/* ******************* */
-/* PRINT SIDE BAR MENU */
-/* ******************* */
-
-?>
-<table class="concordtable" width="100%">
-	<tr>
-		<th class="concordtable"><a class="menuHeaderItem">Menu</a></th>
-	</tr>
-</table>
-
-<table class="concordtable" width="100%">
-
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">Corpus queries</a></th>
-</tr>
-
-<?php
-echo print_menurow_index('search', 'Standard query');
-echo print_menurow_index('restrict', 'Restricted query');
-/* TODO
-   note for future: "Restrict query by text" vs "Restrict quey by XML"
-   OR: Restrict query (by XXXX) to be part of the configuration in the DB?
-   with a row for every XXXX that is an XML in the db that has been set up
-   for restricting-via? 
-   and the normal "Restricted query" is jut a special case for text / text_id
-   
-   OR: just have "Restricted query" and open up sub-options when that is clicked on?
-   */
-echo print_menurow_index('lookup', 'Word lookup');
-echo print_menurow_index('freqList', 'Frequency lists');
-echo print_menurow_index('keywords', 'Keywords');
-?>
-
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">User controls</a></th>
-</tr>
-
-<?php
-echo print_menurow_index('userSettings', 'User settings');
-echo print_menurow_index('history', 'Query history');
-echo print_menurow_index('savedQs', 'Saved queries');
-echo print_menurow_index('categorisedQs', 'Categorised queries');
-echo print_menurow_index('uploadQ', 'Upload a query');
-echo print_menurow_index('subcorpus', 'Create/edit subcorpora');
-?>
-
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">Corpus info</a></th>
-</tr>
-
-<?php
-/* note that most of this section is links-out, so we can't use the print-row function */
-
-/* SHOW CORPUS METADATA */
-echo "<tr>\n\t<td class=\"";
-if ($thisQ != "corpusMetadata")
-	echo "concordgeneral\">\n\t\t<a class=\"menuItem\" " 
-		. "href=\"index.php?thisQ=corpusMetadata&uT=y\" "
-		. "onmouseover=\"return escape('View CQPweb\'s database of information about this corpus')\">";
-else 
-	echo "concordgrey\">\n\t\t<a class=\"menuCurrentItem\">";
-echo "View corpus metadata</a>\n\t</td>\n</tr>";
-
-
-/* print a link to a corpus manual, if there is one */
-$sql_query = "select external_url from corpus_metadata_fixed "
-	. "where corpus = '$corpus_sql_name' and external_url IS NOT NULL";
-$result = do_mysql_query($sql_query);
-if (mysql_num_rows($result) < 1)
-	echo '<tr><td class="concordgeneral"><a class="menuCurrentItem">Corpus documentation</a></tr></td>';
-else
-{
-	$row = mysql_fetch_row($result);
-	echo '<tr><td class="concordgeneral"><a target="_blank" class="menuItem" href="'
-		. $row[0] . '" onmouseover="return escape(\'Info on ' . addcslashes($corpus_title, '\'')
-		. ' on the web\')">' . 'Corpus documentation</a></td></tr>';
-}
-unset($result);
-unset($row);
-
-
-/* print a link to each tagset for which an external_url is declared in metadata */
-$sql_query = "select description, tagset, external_url from annotation_metadata "
-	. "where corpus = '$corpus_sql_name' and external_url IS NOT NULL";
-$result = do_mysql_query($sql_query);
-
-while (($row = mysql_fetch_assoc($result)) != false)
-{
-	if ($row['external_url'] != '')
-		echo '<tr><td class="concordgeneral"><a target="_blank" class="menuItem" href="'
-			. $row['external_url'] . '" onmouseover="return escape(\'' . $row['description']
-			. ': view documentation\')">' . $row['tagset'] . '</a></td></tr>';
-}
-unset($result);
-unset($row);
-
-
-
-/* these are the super-user options */
-if (user_is_superuser($username))
-{
-	?>
-	
-	<tr>
-		<th class="concordtable">
-			<a class="menuHeaderItem">Admin tools</a>
-		</th>
-	</tr>
-	<tr>
-		<td class="concordgeneral">
-			<a class="menuItem" href="../adm">Admin control panel</a>
-		</td>
-	</tr>
-	<?php
-	
-	echo print_menurow_index('corpusSettings', 'Corpus settings');
-	if ($cqpweb_uses_apache)
-		echo print_menurow_index('userAccess', 'Manage access');
-	echo print_menurow_index('manageMetadata', 'Manage metadata');
-	echo print_menurow_index('manageCategories', 'Manage text categories');
-	echo print_menurow_index('manageAnnotation', 'Manage annotation');
-	echo print_menurow_index('manageVisualisation', 'Manage visualisations');
-	echo print_menurow_index('cachedQueries', 'Cached queries');
-	echo print_menurow_index('cachedDatabases', 'Cached databases');
-	echo print_menurow_index('cachedFrequencyLists', 'Cached frequency lists');
-	
-} /* end of "if user is a superuser" */
-
-?>
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">About CQPweb</a></th>
-</tr>
-
-<tr>
-	<td class="concordgeneral">
-		<a class="menuItem" href="../"
-			onmouseover="return escape('Go to a list of all corpora on the CQPweb system')">
-			CQPweb main menu
-		</a>
-	</td>
-</tr>
-<tr>
-	<td class="concordgeneral">
-		<a class="menuItem" target="_blank" href="../doc/CQPweb-man.pdf"
-			onmouseover="return escape('CQPweb manual')">
-			CQPweb manual
-		</a>
-	</td>
-</tr>
-<?php
-echo print_menurow_index('who_the_hell', 'Who did it?');
-echo print_menurow_index('latest', 'Latest news');
-echo print_menurow_index('bugs', 'Report bugs');
-
-
-?>
-</table>
-
-		</td>
-		<td valign="top">
-		
-<table class="concordtable" width="100%">
-	<tr>
-		<th class="concordtable"><a class="menuHeaderItem">
-		<?php echo $corpus_title . $searchpage_corpus_name_suffix; ?>
-		</a></th>
-	</tr>
-</table>
-
-
-
-<?php
-
-
-
-
-/* ********************************** */
-/* PRINT MAIN SEARCH FUNCTION CONTENT */
-/* ********************************** */
-
-
-
-switch($thisQ)
-{
-case 'search':
-	printquery_search();
-	display_system_messages();
-	break;
-
-case 'restrict':
-	printquery_restricted();
-	break;
-
-case 'lookup':
-	printquery_lookup();
-	break;
-
-case 'freqList':
-	printquery_freqlist();
-	break;
-
-case 'keywords':
-	printquery_keywords();
-	break;
-
-case 'userSettings':
-	printquery_usersettings();
-	printquery_usermacros();
-	break;
-
-case 'history':
-	printquery_history();
-	break;
-
-case 'savedQs':
-	printquery_savedqueries();
-	break;
-	
-case 'categorisedQs':
-	printquery_catqueries();
-	break;
-
-case 'uploadQ':
-	printquery_uploadquery();
-	break;
-	
-case 'subcorpus':
-	printquery_subcorpus();
-	break;
-
-case 'corpusMetadata':
-	printquery_corpusmetadata();
-	break;
-
-case 'corpusSettings':
-	printquery_corpusoptions();
-	break;
-
-case 'userAccess':
-	printquery_manageaccess();
-	break;
-
-case 'manageMetadata':
-	printquery_managemeta();
-	break;
-
-case 'manageCategories':
-	printquery_managecategories();
-	break;
-
-case 'manageAnnotation':
-	printquery_manageannotation();
-	break;
-
-case 'manageVisualisation':
-	printquery_visualisation();
-	printquery_xmlvisualisation();
-	break;
-
-case 'cachedQueries':
-	printquery_showcache();
-	break;
-
-case 'cachedDatabases':
-	printquery_showdbs();
-	break;
-
-case 'cachedFrequencyLists':
-	printquery_showfreqtables();
-	break;
-
-case 'who_the_hell':
-	printquery_who();
-	break;
-	
-case 'latest':
-	printquery_latest();
-	break;
-
-case 'bugs':
-	printquery_bugs();
-	break;
-
-
-
-default:
-	?>
-	<p class="errormessage">&nbsp;<br/>
-		&nbsp; <br/>
-		We are sorry, but that is not a valid menu option.
-	</p>
-	<?php
-	break;
-}
-
-
-
-/* finish off the page */
-?>
-
-		</td>
-	</tr>
-</table>
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1><?php  echo $homepage_welcome_message; ?></h1>
+				<p><?php echo $corpus_title . $searchpage_corpus_name_suffix; ?></p>
+			</div>
+		</div>
+	</div>
+	<!-- End of the header-wrapper -->
+	<div id="menu-wrapper">
+		<div id="menu">
+			<table class="concordtable">
+				<?php
+				
+				$CurrentCorpusTitle = $corpus_title;
+				
+				foreach ($categories as $idno => $cat)
+				{
+					/* get a list of corpora */
+					
+					$sql_query = "select corpus, visible from corpus_metadata_fixed where visible = 1 "
+						. ($use_corpus_categories_on_homepage ? "and corpus_cat = '$idno'" : '') 
+						. " order by corpus asc";
+				
+					$result = do_mysql_query($sql_query);
+					
+					$corpus_list = array();
+					while ( ($x = mysql_fetch_object($result)) != false)
+						$corpus_list[] = $x;
+					
+					/* don't print a table for empty categories */
+					if (empty($corpus_list))
+						continue;
+					
+				
+				
+					if ($use_corpus_categories_on_homepage);
+						//echo '<tr><th colspan="3" class="concordtable">' . $cat . "</th></tr>\n\n";
+					
+					
+					
+					$i = 0;
+					$celltype = 'concordgeneral';
+					foreach ($corpus_list as $c)
+					{
+												
+						/* get $corpus_title */
+						include ("../{$c->corpus}/settings.inc.php");
+						if (empty($corpus_title))
+							$corpus_title = $c->corpus;
+						
+						if ($i == 0)
+						echo '<tr>';
+						
+						echo "
+							<td class=\"$celltype\">
+								&nbsp;<br/>
+								<a ";
+						if (($corpus_title == $CurrentCorpusTitle)) echo "class=\"current_Page_item\" ";
+						echo "href=\"../{$c->corpus}/\">$corpus_title</a>
+								<br/>&nbsp;
+							</td>";
+						
+						
+						if ($i == 2)
+						{
+							echo '</tr>';
+							$i = 0;
+						}
+						else
+						{
+							$i++;
+						}
+						
+						unset($corpus_title);
+					}
+					if ($i != 0){
+
+					while ($i < 2)
+					{
+						echo '<td></td>';
+					}
+					echo '</tr>';
+					}
+					
+				}
+				include ("settings.inc.php");
+				?>			
+			</table>
+		</div>
+		<!-- End of the menu dib -->
+	</div>
+	<!--  End of the menu-wrapper div -->
+	<div id="Page">
+		<div id="page-bgtop">
+			<div id="page-bgbtm">
+				<div id="content">
+						<?php
+				
+						/* ********************************** */
+						/* PRINT MAIN SEARCH FUNCTION CONTENT */
+						/* ********************************** */
+				
+						switch($thisQ)
+						{
+						case 'search':
+							printquery_search();
+							display_system_messages();
+							break;
+						
+						case 'restrict':
+							printquery_restricted();
+							break;
+						
+						case 'lookup':
+							printquery_lookup();
+							break;
+						
+						case 'freqList':
+							printquery_freqlist();
+							break;
+						
+						case 'keywords':
+							printquery_keywords();
+							break;
+						
+						case 'userSettings':
+							printquery_usersettings();
+							printquery_usermacros();
+							break;
+						
+						case 'history':
+							printquery_history();
+							break;
+						
+						case 'savedQs':
+							printquery_savedqueries();
+							break;
+							
+						case 'categorisedQs':
+							printquery_catqueries();
+							break;
+						
+						case 'uploadQ':
+							printquery_uploadquery();
+							break;
+							
+						case 'subcorpus':
+							printquery_subcorpus();
+							break;
+						
+						case 'corpusMetadata':
+							printquery_corpusmetadata();
+							break;
+						
+						case 'corpusSettings':
+							printquery_corpusoptions();
+							break;
+						
+						case 'userAccess':
+							printquery_manageaccess();
+							break;
+						
+						case 'manageMetadata':
+							printquery_managemeta();
+							break;
+						
+						case 'manageCategories':
+							printquery_managecategories();
+							break;
+						
+						case 'manageAnnotation':
+							printquery_manageannotation();
+							break;
+						
+						case 'manageVisualisation':
+							printquery_visualisation();
+							printquery_xmlvisualisation();
+							break;
+						
+						case 'cachedQueries':
+							printquery_showcache();
+							break;
+						
+						case 'cachedDatabases':
+							printquery_showdbs();
+							break;
+						
+						case 'cachedFrequencyLists':
+							printquery_showfreqtables();
+							break;
+						
+						case 'who_the_hell':
+							printquery_who();
+							break;
+							
+						case 'latest':
+							printquery_latest();
+							break;
+						
+						case 'bugs':
+							printquery_bugs();
+							break;
+						
+						
+						
+						default:
+							?>
+							<p class="errormessage">&nbsp;<br/>
+								&nbsp; <br/>
+								We are sorry, but that is not a valid menu option.
+							</p>
+							<?php
+							break;
+						}
+						
+					/* finish off the page */
+					?>
+				<div style="clear: both;">&nbsp;</div>	
+				</div>
+				<!--  End of content div -->
+				<div id="sidebar">
+					<?php
+					
+					/* ******************* */
+					/* PRINT SIDE BAR MENU */
+					/* ******************* */
+					
+					?>
+					<ul>
+						<li>
+							<h1>Menu</h1>
+						</li>
+						<li>
+							<h2>Corpus queries</h2>
+							<ul>
+								<?php
+								echo print_menurow_index('search', 'Standard query');
+								echo print_menurow_index('restrict', 'Restricted query');
+								/* TODO
+								   note for future: "Restrict query by text" vs "Restrict quey by XML"
+								   OR: Restrict query (by XXXX) to be part of the configuration in the DB?
+								   with a row for every XXXX that is an XML in the db that has been set up
+								   for restricting-via? 
+								   and the normal "Restricted query" is jut a special case for text / text_id
+								   
+								   OR: just have "Restricted query" and open up sub-options when that is clicked on?
+								   */
+								echo print_menurow_index('lookup', 'Word lookup');
+								echo print_menurow_index('freqList', 'Frequency lists');
+								echo print_menurow_index('keywords', 'Keywords');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2> User controls </h2>
+							<ul>
+								<?php
+								echo print_menurow_index('userSettings', 'User settings');
+								echo print_menurow_index('history', 'Query history');
+								echo print_menurow_index('savedQs', 'Saved queries');
+								echo print_menurow_index('categorisedQs', 'Categorised queries');
+								echo print_menurow_index('uploadQ', 'Upload a query');
+								echo print_menurow_index('subcorpus', 'Create/edit subcorpora');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Corpus info</h2>
+							<ul>
+								<?php
+									/* note that most of this section is links-out, so we can't use the print-row function */
+									
+									/* SHOW CORPUS METADATA */
+									echo "<li><a class=\"menuItem\" " 
+											. "href=\"index.php?thisQ=corpusMetadata&uT=y\" "
+											. "onmouseover=\"return escape('View CQPweb\'s database of information about this corpus')\">";
+									echo "View corpus metadata</a></li>";
+									
+									
+									/* print a link to a corpus manual, if there is one */
+									$sql_query = "select external_url from corpus_metadata_fixed "
+										. "where corpus = '$corpus_sql_name' and external_url IS NOT NULL";
+									$result = do_mysql_query($sql_query);
+									if (mysql_num_rows($result) < 1)
+										echo '<li><a class="menuCurrentItem">Corpus documentation</a></li>';
+									else
+									{
+										$row = mysql_fetch_row($result);
+										echo '<li><a target="_blank" class="menuItem" href="'
+											. $row[0] . '" onmouseover="return escape(\'Info on ' . addcslashes($corpus_title, '\'')
+											. ' on the web\')">' . 'Corpus documentation</a></li>';
+									}
+									unset($result);
+									unset($row);
+									
+									
+									/* print a link to each tagset for which an external_url is declared in metadata */
+									$sql_query = "select description, tagset, external_url from annotation_metadata "
+										. "where corpus = '$corpus_sql_name' and external_url IS NOT NULL";
+									$result = do_mysql_query($sql_query);
+									
+									while (($row = mysql_fetch_assoc($result)) != false)
+									{
+										if ($row['external_url'] != '')
+											echo '<li><a target="_blank" class="menuItem" href="'
+												. $row['external_url'] . '" onmouseover="return escape(\'' . $row['description']
+												. ': view documentation\')">' . $row['tagset'] . '</a></li>';
+									}
+									unset($result);
+									unset($row);
+									
+									
+									
+									/* these are the super-user options */
+									if (user_is_superuser($username))
+									{
+										?>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<h2>Admin tools</h2>
+								<ul>
+									<li><a class="menuItem" href="../adm">Admin control panel</a></li>
+									<?php
+									
+									echo print_menurow_index('corpusSettings', 'Corpus settings');
+									if ($cqpweb_uses_apache)
+										echo print_menurow_index('userAccess', 'Manage access');
+									echo print_menurow_index('manageMetadata', 'Manage metadata');
+									echo print_menurow_index('manageCategories', 'Manage text categories');
+									echo print_menurow_index('manageAnnotation', 'Manage annotation');
+									echo print_menurow_index('manageVisualisation', 'Manage visualisations');
+									echo print_menurow_index('cachedQueries', 'Cached queries');
+									echo print_menurow_index('cachedDatabases', 'Cached databases');
+									echo print_menurow_index('cachedFrequencyLists', 'Cached frequency lists');
+									
+								} /* end of "if user is a superuser" */
+								
+								?>
+								</ul>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<h2>About CQPweb</h2>
+								<ul>
+									<li><a class="menuItem" href="../"
+										onmouseover="return escape('Go to a list of all corpora on the CQPweb system')">
+										CQPweb main menu
+									</a></li>
+									<li><a class="menuItem" target="_blank" href="../doc/CQPweb-man.pdf"
+										onmouseover="return escape('CQPweb manual')">
+										CQPweb manual
+									</a></li>
+									<?php
+									echo print_menurow_index('who_the_hell', 'Who did it?');
+									echo print_menurow_index('latest', 'Latest news');
+									echo print_menurow_index('bugs', 'Report bugs');
+									?>
+								</ul>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- End of sidebar div -->
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+			<!--  End of page-bgbtm div -->
+		</div>
+		<!--  End of pagt-bgtop div -->
+	</div>
+	<!-- End of page div -->
+</div>
+<!--  End of the wrapper -->
+
+<div id="footer">
 <?php
 
 print_footer();

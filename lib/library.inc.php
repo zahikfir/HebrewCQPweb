@@ -1166,14 +1166,16 @@ function print_menurow_index($link_handle, $link_text)
 }
 function print_menurow_backend($link_handle, $link_text, $current_query, $http_varname)
 {
-	$s = "\n<tr>\n\t<td class=\"";
+	/*$s = "\n<tr>\n\t<td class=\"";
 	if ($current_query != $link_handle)
 		$s .= "concordgeneral\">\n\t\t<a class=\"menuItem\""
 			. " href=\"index.php?$http_varname=$link_handle&uT=y\">";
 	else 
 		$s .= "concordgrey\">\n\t\t<a class=\"menuCurrentItem\">";
 	$s .= "$link_text</a>\n\t</td>\n</tr>\n";
-	return $s;
+	return $s;*/
+	
+	return "<li><a href=\"index.php?$http_varname=$link_handle&uT=y\">$link_text</a></li>";
 }
 
 
@@ -1309,7 +1311,7 @@ function display_system_messages()
 		return;
 	
 	?>
-	<table class="concordtable" width="100%">
+	<table class="concordtable" >
 		<tr>
 			<th colspan="<?php echo ($su ? 3 : 2) ; ?>" class="concordtable">
 				System messages 

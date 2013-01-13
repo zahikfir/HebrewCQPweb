@@ -75,7 +75,7 @@ header('Content-Type: text/html; charset=utf-8');
 			</div>
 		</div>
 	</div>
-	
+	<!--  End of the header-wrapper div -->
 	<div id="menu-wrapper">
 		<div id="menu">
 			<table class="concordtable">
@@ -155,7 +155,6 @@ header('Content-Type: text/html; charset=utf-8');
 		<!-- End of the menu dib -->
 	</div>
 	<!--  End of the menu-wrapper div -->
-	
 	<div id="page">
 		<div id="page-bgtop">
 			<div id="page-bgbtm">

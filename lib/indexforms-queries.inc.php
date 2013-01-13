@@ -54,7 +54,7 @@ function printquery_search()
 		$select_qmode = ($corpus_uses_case_sensitivity ? 'sq_case' : 'sq_nocase');
 
 ?>
-<table class="concordtable" width="100%">
+<table class="concordtable">
 
 	<tr>
 		<th class="concordtable">Standard Query</th>
@@ -223,7 +223,7 @@ function printquery_restricted()
 	}
 
 ?>
-<table class="concordtable" width="100%">
+<table class="concordtable">
 
 	<tr>
 		<th class="concordtable" colspan="3">Restricted Query</th>
