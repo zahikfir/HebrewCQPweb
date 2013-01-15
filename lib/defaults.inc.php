@@ -202,7 +202,7 @@ if (!isset($css_path_for_homepage))
 	$css_path_for_homepage = "../css/shotgunandshells_style.css";
 
 if (!isset($css_path_for_adminpage))
-	$css_path_for_adminpage = "../css/CQPweb-red.css";
+	$css_path_for_adminpage = "../css/shotgunandshells_style.css";
 
 if (!isset($homepage_welcome_message))
 	$homepage_welcome_message = "Hebrew CQP web!";

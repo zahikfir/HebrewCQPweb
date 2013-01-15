@@ -176,258 +176,263 @@ function add_p_attribute_row()
 
 <body>
 
-<table class="concordtable" width="100%">
-	<tr>
-		<td valign="top">
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1>Hebrew CQPweb</h1>
+				<p>Sysadmin Control Panel</p>
+			</div>
+		</div>
+	</div>
+	<!-- End of the header-wrapper -->
+	<div id="Page">
+		<div id="page-bgtop">
+			<div id="page-bgbtm">
+				<div id="content">
+					<?php
 
-<?php
+					/* ********************************** */
+					/* PRINT MAIN SEARCH FUNCTION CONTENT */
+					/* ********************************** */
+				
+					switch($thisF)
+					{
+						case 'showCorpora':
+							printquery_showcorpora();
+							break;
+					
+						case 'installCorpus':
+							printquery_installcorpus_unindexed();
+							break;
+					
+						case 'installCorpusIndexed':
+							printquery_installcorpus_indexed();
+							break;
+					
+						case 'installCorpusDone':
+							printquery_installcorpusdone();
+							break;
+					
+						case 'deleteCorpus':
+							/* note - this never has a menu entry -- it must be triggered from showCorpora */
+							printquery_deletecorpus();
+							break;
+					
+						case 'manageCorpusCategories':
+							printquery_corpuscategories();
+							break;
+					
+						case 'publicTables':
+							echo '<p class="errormessage">We\'re sorry, this function has not been built yet.</p>';
+							break;
+					
+						case 'newUpload':
+							printquery_newupload();
+							break;
+					
+						case 'uploadArea':
+							printquery_uploadarea();
+							break;
+					
+						case 'userAdmin':
+							printquery_useradmin();
+							break;
+					
+						case 'groupAdmin':
+							printquery_groupadmin();
+							break;
+					
+						case 'groupAccess':
+							printquery_groupaccess();
+							break;
+					
+						case 'superuserAccess':
+							printquery_superuseraccess();
+							break;
+					
+						case 'skins':
+							printquery_skins();
+							break;
+					
+						case 'mappingTables':
+							printquery_mappingtables();
+							break;
+					
+						case 'cacheControl':
+						case 'systemSettings':
+							echo '<p class="errormessage">We\'re sorry, this function has not been built yet.</p>';
+							break;
+					
+						case 'systemMessages':
+							printquery_systemannouncements();
+							break;
+					
+						case 'systemSecurity':
+							printquery_systemsecurity();
+							break;
+					
+						case 'systemSnapshots':
+							printquery_systemsnapshots();
+							break;
+					
+						case 'systemDiagnostics':
+							printquery_systemdiagnostics();
+							break;
+					
+						case 'mysqlRestore':
+							printquery_mysqlsystemrestore();
+							break;
+					
+						case 'phpConfig':
+							printquery_phpconfig();
+							break;
+					
+						case 'tableView':
+							printquery_tableview();
+							break;
+					
+						case 'manageProcesses':
+							printquery_mysqlprocesses();
+							break;
+					
+						case 'corpusStatistics':
+							printquery_statistic('corpus');
+							break;
+					
+						case 'userStatistics':
+							printquery_statistic('user');
+							break;
+					
+						case 'queryStatistics':
+							printquery_statistic('query');
+							break;
+					
+						case 'advancedStatistics':
+							printquery_advancedstats();
+							break;
+					
+						default:
+							?>
+						<p class="errormessage">&nbsp;<br/>
+							&nbsp; <br/>
+							We are sorry, but that is not a valid function type.
+						</p>
+						<?php
+						break;
+					}
+					
+					/* finish off the page */
+					?>
+					<div style="clear: both;">&nbsp;</div>	
+				</div>
+				<!-- End of content div -->
+				<div id="sidebar">
+					<?php
+					
+					/* ******************* */
+					/* PRINT SIDE BAR MENU */
+					/* ******************* */
+					
+					?>
+					<ul>
+						<li>
+							<h1>Menu</h1>
+						</li>
+						<li>
+							<h2>Corpora</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('showCorpora', 'Show corpora');
+								echo print_menurow_admin('installCorpus', 'Install new corpus');
+								echo print_menurow_admin('manageCorpusCategories', 'Manage corpus categories');
+								echo print_menurow_admin('publicTables', 'Public frequency lists');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Uploads</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('newUpload', 'Upload a file');
+								echo print_menurow_admin('uploadArea', 'View upload area');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Users</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('userAdmin', 'Manage users');
+								echo print_menurow_admin('groupAdmin', 'Manage group membership');
+								echo print_menurow_admin('groupAccess', 'Manage group access');
+								echo print_menurow_admin('superuserAccess', 'Manage superuser access');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Database</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('manageProcesses', 'Manage MySQL processes');
+								echo print_menurow_admin('tableView', 'View a MySQL table');
+								echo print_menurow_admin('mysqlRestore', 'Reset MySQL database');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>System</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('systemSettings', 'System settings');
+								echo print_menurow_admin('systemMessages', 'System messages');
+								echo print_menurow_admin('systemSecurity', 'System security');
+								echo print_menurow_admin('systemSnapshots', 'System snapshots');
+								echo print_menurow_admin('systemDiagnostics', 'System diagnostics');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Misc</h2>
+							<ul>
+								<li><a class="menuItem" href="../"
+								onmouseover="return escape('Go to a list of all corpora on the CQPweb system')">
+								CQPweb main menu
+							    </a></li>
+								<?php
+								echo print_menurow_admin('skins', 'Skins and colours');
+								echo print_menurow_admin('mappingTables', 'Mapping tables');
+								echo print_menurow_admin('cacheControl', 'Cache control');
+								echo print_menurow_admin('phpConfig', 'PHP configuration');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Usage Statistics</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('corpusStatistics', 'Corpus statistics');
+								echo print_menurow_admin('userStatistics', 'User statistics');
+								echo print_menurow_admin('queryStatistics', 'Query statistics');
+								echo print_menurow_admin('advancedStatistics', 'Advanced statistics');
+								
+								?>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- End of sidebar div -->
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+			<!-- End of page-bgbtm div -->
+		</div>
+		<!-- End of page-bgtop div -->
+	</div>
+	<!-- End of page div -->			
+</div> 
+<!-- End of wrapper div -->
 
-
-
-/* ******************* */
-/* PRINT SIDE BAR MENU */
-/* ******************* */
-
-?>
-<table class="concordtable" width="100%">
-	<tr>
-		<th class="concordtable"><a class="menuHeaderItem">Menu</a></th>
-	</tr>
-</table>
-
-<table class="concordtable" width="100%">
-
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">Corpora</a></th>
-</tr>
-<?php
-echo print_menurow_admin('showCorpora', 'Show corpora');
-echo print_menurow_admin('installCorpus', 'Install new corpus');
-echo print_menurow_admin('manageCorpusCategories', 'Manage corpus categories');
-echo print_menurow_admin('publicTables', 'Public frequency lists');
-?>
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">Uploads</a></th>
-</tr>
-<?php
-echo print_menurow_admin('newUpload', 'Upload a file');
-echo print_menurow_admin('uploadArea', 'View upload area');
-?>
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">Users</a></th>
-</tr>
-<?php
-echo print_menurow_admin('userAdmin', 'Manage users');
-echo print_menurow_admin('groupAdmin', 'Manage group membership');
-echo print_menurow_admin('groupAccess', 'Manage group access');
-echo print_menurow_admin('superuserAccess', 'Manage superuser access');
-?>
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">Database</a></th>
-</tr>
-<?php
-echo print_menurow_admin('manageProcesses', 'Manage MySQL processes');
-echo print_menurow_admin('tableView', 'View a MySQL table');
-echo print_menurow_admin('mysqlRestore', 'Reset MySQL database');
-?>
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">System</a></th>
-</tr>
-<?php
-echo print_menurow_admin('systemSettings', 'System settings');
-echo print_menurow_admin('systemMessages', 'System messages');
-echo print_menurow_admin('systemSecurity', 'System security');
-echo print_menurow_admin('systemSnapshots', 'System snapshots');
-echo print_menurow_admin('systemDiagnostics', 'System diagnostics');
-?>
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">Misc</a></th>
-</tr>
-<tr>
-	<td class="concordgeneral">
-		<a class="menuItem" href="../"
-			onmouseover="return escape('Go to a list of all corpora on the CQPweb system')">
-			CQPweb main menu
-		</a>
-	</td>
-</tr>
-<?php
-echo print_menurow_admin('skins', 'Skins and colours');
-echo print_menurow_admin('mappingTables', 'Mapping tables');
-echo print_menurow_admin('cacheControl', 'Cache control');
-echo print_menurow_admin('phpConfig', 'PHP configuration');
-?>
-<tr>
-	<th class="concordtable"><a class="menuHeaderItem">Usage Statistics</a></th>
-</tr>
-<?php
-echo print_menurow_admin('corpusStatistics', 'Corpus statistics');
-echo print_menurow_admin('userStatistics', 'User statistics');
-echo print_menurow_admin('queryStatistics', 'Query statistics');
-echo print_menurow_admin('advancedStatistics', 'Advanced statistics');
-
-?>
-</table>
-
-		</td>
-		<td valign="top">
-		
-<table class="concordtable" width="100%">
-	<tr>
-		<th class="concordtable">
-			CQPweb Sysadmin Control Panel
-		</th>
-	</tr>
-</table>
-
-<?php
-
-
-
-
-/* ********************************** */
-/* PRINT MAIN SEARCH FUNCTION CONTENT */
-/* ********************************** */
-
-
-
-
-
-switch($thisF)
-{
-case 'showCorpora':
-	printquery_showcorpora();
-	break;
-	
-case 'installCorpus':
-	printquery_installcorpus_unindexed();
-	break;
-
-case 'installCorpusIndexed':
-	printquery_installcorpus_indexed();
-	break;
-
-case 'installCorpusDone':
-	printquery_installcorpusdone();
-	break;
-	
-case 'deleteCorpus':
-	/* note - this never has a menu entry -- it must be triggered from showCorpora */
-	printquery_deletecorpus();
-	break;
-
-case 'manageCorpusCategories':
-	printquery_corpuscategories();
-	break;
-	
-case 'publicTables':
-	echo '<p class="errormessage">We\'re sorry, this function has not been built yet.</p>';
-	break;
-
-case 'newUpload':
-	printquery_newupload();
-	break;
-	
-case 'uploadArea':
-	printquery_uploadarea();
-	break;
-	
-case 'userAdmin':
-	printquery_useradmin();
-	break;
-	
-case 'groupAdmin':
-	printquery_groupadmin();
-	break;
-
-case 'groupAccess':
-	printquery_groupaccess();
-	break;
-
-case 'superuserAccess':
-	printquery_superuseraccess();
-	break;
-	
-case 'skins':
-	printquery_skins();
-	break;
-
-case 'mappingTables':
-	printquery_mappingtables();
-	break;
-
-case 'cacheControl':
-case 'systemSettings':
-	echo '<p class="errormessage">We\'re sorry, this function has not been built yet.</p>';
-	break;
-	
-case 'systemMessages':
-	printquery_systemannouncements();
-	break;
-
-case 'systemSecurity':
-	printquery_systemsecurity();
-	break;
-
-case 'systemSnapshots':
-	printquery_systemsnapshots();
-	break;
-
-case 'systemDiagnostics':
-	printquery_systemdiagnostics();
-	break;
-
-case 'mysqlRestore':
-	printquery_mysqlsystemrestore();
-	break;
-
-case 'phpConfig':
-	printquery_phpconfig();
-	break;
-
-case 'tableView':
-	printquery_tableview();
-	break;
-	
-case 'manageProcesses':
-	printquery_mysqlprocesses();
-	break;
-	
-case 'corpusStatistics':
-	printquery_statistic('corpus');
-	break;
-
-case 'userStatistics':
-	printquery_statistic('user');
-	break;
-
-case 'queryStatistics':
-	printquery_statistic('query');
-	break;
-	
-case 'advancedStatistics':
-	printquery_advancedstats();
-	break;
-
-default:
-	?>
-	<p class="errormessage">&nbsp;<br/>
-		&nbsp; <br/>
-		We are sorry, but that is not a valid function type.
-	</p>
-	<?php
-	break;
-}
-
-
-
-
-
-/* finish off the page */
-?>
-		</td>
-	</tr>
-</table>
+<div id="footer">
 <?php
 
 print_footer(NULL);
