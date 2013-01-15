@@ -244,6 +244,12 @@ img.aligncenter {
 
 /* Page */
 
+#widepage{
+	margin: 0 auto;
+	padding: 0;
+	background-color: #FFFFFF;
+}
+
 #page {
 	width: 1200px;
 	margin: 0 auto;
@@ -264,25 +270,32 @@ img.aligncenter {
 
 /* Content */
 
+#maincontent{
+	padding: 0px 0px 0px 0px;
+}
+
 #content {
 	float: right;
 	width: 800px;
 	padding: 0px 0px 0px 0px;
 }
 
-#content table.concordtable{
+#content table.concordtable,
+#maincontent table.concordtable{
 	clear: both;
 	padding: 30px 0px;
 	border-bottom: 1px solid #D9D9D9;
 }
 
-#content th {
+#content th ,
+#maincontent th{
 	padding-top: 10px;
 	letter-spacing: -2px;
 	font-size: 30px;
 }
 
-#content th.concordtable{
+#content th.concordtable,
+#maincontent th.concordtable{
 	border: none;
 	color: #E42E33;
 }
@@ -352,8 +365,8 @@ img.aligncenter {
 }
 
 #sidebar li ul {
-	margin: 0px 15px;
-	padding-bottom: 30px;
+	margin: 0px 10px;
+	padding-bottom: 10px;
 }
 
 #sidebar li li {

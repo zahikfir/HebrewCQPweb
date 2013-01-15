@@ -701,14 +701,30 @@ header('Content-Type: text/html; charset=utf-8');
 
 	</head>
 	<body>
-
-<?php
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
+						<?php
 
 
 
 /* print table headings && control lines */
 
-echo "\n<table class=\"concordtable\" width=\"100%\">\n";
+echo "<table class=\"concordtable\" width=\"100%\">";
 
 echo '<tr><th colspan="8" class="concordtable">' 
 	. create_solution_heading($cache_record)
@@ -865,10 +881,24 @@ echo '</table>';
 /* show the control row again at the bottom if there are more than 15 lines on screen */
 if ($num_of_solutions_final > 15 && $per_page > 15)
 	echo "\n<table class=\"concordtable\" width=\"100%\">\n" . $control_row . '</table>';
+?>
+					<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
 
 
 
 
+
+<div id="footer">
+<?php 
 /* create page end HTML */
 print_footer();
 
