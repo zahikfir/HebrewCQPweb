@@ -1,8 +1,0 @@
-AuthUserFile /home/haims/NLPLab/usernamesandpasswords/.htpasswd
-AuthGroupFile /home/haims/NLPLab/usernamesandpasswords/.htgroup
-AuthName CQPweb
-AuthType Basic
-deny from all
-require group superusers
-satisfy any
-

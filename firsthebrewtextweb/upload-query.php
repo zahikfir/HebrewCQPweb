@@ -1,1 +1,0 @@
-<?php require('../lib/upload-query.inc.php'); ?>
