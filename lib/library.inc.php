@@ -1475,4 +1475,105 @@ function list_plugins_of_type($type)
 	return $result;
 }
 
+
+/** Create a page Menu - which shows all the available corpora.*/
+function print_Menu($isMainHome)
+{
+	if ($use_corpus_categories_on_homepage)
+	{
+		/* get a list of categories */
+		$categories = list_corpus_categories();
+	
+		/* how many categories? if only one, it is either uncategorised or a single assigned cat: ergo don't use cats */
+		$n = count($categories);
+		if ($n < 2)
+			$use_corpus_categories_on_homepage = false;
+	}
+	else
+	{
+		/* empty string: to make the loops cycle once */
+		$categories = array(0=>'');
+	}
+	
+	echo "<div id=\"menu-wrapper\">
+	<div id=\"menu\">
+	<table class=\"concordtable\">";
+	
+
+	foreach ($categories as $idno => $cat)
+	{
+		/* get a list of corpora */
+		$sql_query = "select corpus, visible from corpus_metadata_fixed where visible = 1 "
+				. ($use_corpus_categories_on_homepage ? "and corpus_cat = '$idno'" : '')
+				. " order by corpus asc";
+	
+		$result = do_mysql_query($sql_query);
+			
+		$corpus_list = array();
+		while ( ($x = mysql_fetch_object($result)) != false)
+			$corpus_list[] = $x;
+			
+		/* don't print a table for empty categories */
+		if (empty($corpus_list))
+			continue;
+			
+	
+	
+		if ($use_corpus_categories_on_homepage);
+		echo '<tr><th colspan="3" class="concordtable">' . $cat . "</th></tr>\n\n";
+			
+			
+			
+		$i = 0;
+		$celltype = 'concordgeneral';
+		foreach ($corpus_list as $c)
+		{
+			if ($i == 0)
+				echo '<tr>';
+			/* get $corpus_title */
+			include ("../{$c->corpus}/settings.inc.php");
+			if (empty($corpus_title))
+				$corpus_title = $c->corpus;
+	
+			echo "
+			<td class=\"$celltype\">
+			&nbsp;<br/>
+			<a href=\"";
+			if (!$isMainHome)
+				echo "../";
+			echo "{$c->corpus}/\">$corpus_title</a>
+			<br/>&nbsp;
+			</td>";
+	
+	
+			if ($i == 2)
+			{
+			echo '</tr>';
+			$i = 0;
+		}
+		else
+		{
+		$i++;
+		}
+	
+		unset($corpus_title);
+		}
+		if ($i != 0){
+	
+		while ($i < 3)
+		{
+		echo '<td></td>';
+		$i++;
+	}
+	echo '</tr>';
+	}
+		
+	}
+	echo" </table>
+		 </div>
+		<!-- End of the menu dib -->
+		</div>
+		<!--  End of the menu-wrapper div -->";
+}
+
 ?>
