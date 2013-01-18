@@ -81,6 +81,23 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 <script type="text/javascript" src="../lib/javascript/cqpweb-clientside.js"></script> 
 </head>
 <body>
+<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 
 <?php
 
@@ -204,6 +221,18 @@ echo "Report bugs</a></td></tr>";
 ?>
 </table>
 
+<div style="clear: both;">&nbsp;</div>
+	</div>
+	<!-- End of content -->
+	<div style="clear: both;">&nbsp;</div>
+	</div>
+	<!-- End of page-bgbtm -->
+	</div>
+	<!-- End of page-bgtop -->
+	</div>
+	<!-- End of page -->
+	
+	<div id="footer">
 
 <?php
 
