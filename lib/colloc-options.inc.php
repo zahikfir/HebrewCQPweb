@@ -58,7 +58,23 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 
 </head>
 <body>
-
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1><?php  echo $homepage_welcome_message; ?></h1>
+				<p></p>
+			</div>
+		</div>
+		<!-- End of header -->
+	</div>
+	<!-- End of header-wrapper -->
+</div>
+<!-- End of wrapper -->
+<div id="widepage">
+	<div id="page-bgtop">
+		<div id="page-bgbtm">
+			<div id="maincontent">
 
 <?php
 
@@ -345,10 +361,23 @@ if (false) // also temp, the next html block will be unconditional
 	</tr>
 </table>
 
-
-<?php
+	<?php
 }
+?>
 
+<div style="clear: both;">&nbsp;</div>
+			</div>
+			<!-- End of content -->
+			<div style="clear: both;">&nbsp;</div>
+		</div>
+		<!-- End of page-bgbtm -->
+	</div>
+	<!-- End of page-bgtop -->
+</div>
+<!-- End of page -->
+
+<div id="footer">
+<?php 
 /* create page end HTML */
 print_footer();
 

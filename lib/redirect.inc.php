@@ -305,12 +305,39 @@ if (isset($_GET['redirect']) && isset($_GET['uT']))
 		<html>
 		<head><title>Error!</title></head>
 		<body>
+		<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 			<pre>
 			
 			ERROR: Redirect type unrecognised.
 			
 			<a href="index.php">Please reload CQPweb</a>.
 			</pre>
+			<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
 		</body>
 		</html>
 		<?php
@@ -325,12 +352,39 @@ else
 	<html>
 	<head><title>Error!</title></head>
 	<body>
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 		<pre>
 		
 			ERROR: Incorrectly formatted URL, or no redirect parameter provided.
 			
 			<a href="index.php">Please reload CQPweb</a>.
 		</pre>
+		<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
 	</body>
 	</html>
 	<?php
