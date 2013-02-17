@@ -251,12 +251,17 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 							</p>
 							<?php
 							break;
-						}
-						
+						}	
 					/* finish off the page */
 					?>
+<div id="ComputeQuery">				
+	<?php echo "[querying your desires]"?>
+	<h1>Query computing: </h1><br/>  							
+	<?php require("../ourExtensions/ComputeQuery.php"); ?>
+</div>
 				<div style="clear: both;">&nbsp;</div>	
 				</div>
+				
 				<!--  End of content div -->
 				<div id="sidebar">
 					<?php
@@ -264,7 +269,6 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 					/* ******************* */
 					/* PRINT SIDE BAR MENU */
 					/* ******************* */
-					
 					?>
 					<ul>
 						<li>
