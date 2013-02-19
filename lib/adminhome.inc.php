@@ -345,8 +345,6 @@ function add_p_attribute_row()
 								<?php
 								echo print_menurow_admin('showCorpora', 'Show corpora');
 								echo print_menurow_admin('installCorpus', 'Install new corpus');
-								echo print_menurow_admin('manageCorpusCategories', 'Manage corpus categories');
-								echo print_menurow_admin('publicTables', 'Public frequency lists');
 								?>
 							</ul>
 						</li>
@@ -364,8 +362,6 @@ function add_p_attribute_row()
 							<ul>
 								<?php
 								echo print_menurow_admin('userAdmin', 'Manage users');
-								echo print_menurow_admin('groupAdmin', 'Manage group membership');
-								echo print_menurow_admin('groupAccess', 'Manage group access');
 								echo print_menurow_admin('superuserAccess', 'Manage superuser access');
 								?>
 							</ul>
@@ -375,7 +371,6 @@ function add_p_attribute_row()
 							<ul>
 								<?php
 								echo print_menurow_admin('manageProcesses', 'Manage MySQL processes');
-								echo print_menurow_admin('tableView', 'View a MySQL table');
 								echo print_menurow_admin('mysqlRestore', 'Reset MySQL database');
 								?>
 							</ul>
@@ -384,10 +379,7 @@ function add_p_attribute_row()
 							<h2>System</h2>
 							<ul>
 								<?php
-								echo print_menurow_admin('systemSettings', 'System settings');
-								echo print_menurow_admin('systemMessages', 'System messages');
 								echo print_menurow_admin('systemSecurity', 'System security');
-								echo print_menurow_admin('systemSnapshots', 'System snapshots');
 								echo print_menurow_admin('systemDiagnostics', 'System diagnostics');
 								?>
 							</ul>
@@ -400,9 +392,6 @@ function add_p_attribute_row()
 								CQPweb main menu
 							    </a></li>
 								<?php
-								echo print_menurow_admin('skins', 'Skins and colours');
-								echo print_menurow_admin('mappingTables', 'Mapping tables');
-								echo print_menurow_admin('cacheControl', 'Cache control');
 								echo print_menurow_admin('phpConfig', 'PHP configuration');
 								?>
 							</ul>
@@ -412,9 +401,7 @@ function add_p_attribute_row()
 							<ul>
 								<?php
 								echo print_menurow_admin('corpusStatistics', 'Corpus statistics');
-								echo print_menurow_admin('userStatistics', 'User statistics');
 								echo print_menurow_admin('queryStatistics', 'Query statistics');
-								echo print_menurow_admin('advancedStatistics', 'Advanced statistics');
 								
 								?>
 							</ul>

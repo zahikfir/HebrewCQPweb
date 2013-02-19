@@ -276,17 +276,6 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 							<ul>
 								<?php
 								echo print_menurow_index('search', 'Standard query');
-								echo print_menurow_index('restrict', 'Restricted query');
-								/* TODO
-								   note for future: "Restrict query by text" vs "Restrict quey by XML"
-								   OR: Restrict query (by XXXX) to be part of the configuration in the DB?
-								   with a row for every XXXX that is an XML in the db that has been set up
-								   for restricting-via? 
-								   and the normal "Restricted query" is jut a special case for text / text_id
-								   
-								   OR: just have "Restricted query" and open up sub-options when that is clicked on?
-								   */
-								echo print_menurow_index('lookup', 'Word lookup');
 								echo print_menurow_index('freqList', 'Frequency lists');
 								echo print_menurow_index('keywords', 'Keywords');
 								?>
@@ -296,10 +285,8 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 							<h2> User controls </h2>
 							<ul>
 								<?php
-								echo print_menurow_index('userSettings', 'User settings');
 								echo print_menurow_index('history', 'Query history');
 								echo print_menurow_index('savedQs', 'Saved queries');
-								echo print_menurow_index('categorisedQs', 'Categorised queries');
 								echo print_menurow_index('uploadQ', 'Upload a query');
 								echo print_menurow_index('subcorpus', 'Create/edit subcorpora');
 								?>
@@ -366,12 +353,7 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 									<?php
 									
 									echo print_menurow_index('corpusSettings', 'Corpus settings');
-									if ($cqpweb_uses_apache)
-										echo print_menurow_index('userAccess', 'Manage access');
 									echo print_menurow_index('manageMetadata', 'Manage metadata');
-									echo print_menurow_index('manageCategories', 'Manage text categories');
-									echo print_menurow_index('manageAnnotation', 'Manage annotation');
-									echo print_menurow_index('manageVisualisation', 'Manage visualisations');
 									echo print_menurow_index('cachedQueries', 'Cached queries');
 									echo print_menurow_index('cachedDatabases', 'Cached databases');
 									echo print_menurow_index('cachedFrequencyLists', 'Cached frequency lists');
