@@ -712,11 +712,11 @@ function print_concordance_line($cqp_line, $position_table, $line_number,
 	{
 		/* print three cells - kwic view */
 
-		$final_string .= '<td class="before" nowrap="nowrap">' . $lc_final . '</td>';
+		$final_string .= '<td class="before" nowrap="nowrap" align="right">' . $lc_final . '</td>';
 
-		$final_string .= '<td class="node" nowrap="nowrap">'. $node_final . '</td>';
+		$final_string .= '<td class="node" nowrap="nowrap" align="center">'. $node_final . '</td>';
 		
-		$final_string .= '<td class="after" nowrap="nowrap">' . $rc_final . '</td>';
+		$final_string .= '<td class="after" nowrap="nowrap" align="left">' . $rc_final . '</td>';
 	}
 	else
 	{
@@ -728,7 +728,7 @@ function print_concordance_line($cqp_line, $position_table, $line_number,
 			$subfinal_string = concordance_wrap_translationbox($subfinal_string, $translation_content);
 		
 		/* and add to the final string */
-		$final_string .= '<td class="lineview">' . $subfinal_string . '</td>';
+		$final_string .= '<td class="lineview" align="right">' . $subfinal_string . '</td>';
 	}
 
 	$final_string .= "\n";
