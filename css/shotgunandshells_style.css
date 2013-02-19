@@ -223,7 +223,7 @@ img.aligncenter {
 }
 
 #menu table.concordtable{
-	margin: 0;
+	margin : 0px auto 0px auto;
 	padding: 0px 0px 0px 0px;
 	list-style: none;
 	line-height: normal;
@@ -232,7 +232,6 @@ img.aligncenter {
 }
 
 #menu th.concordtable {
-		
 }
 
 #menu tr{

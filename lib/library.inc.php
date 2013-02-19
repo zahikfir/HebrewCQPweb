@@ -1546,7 +1546,7 @@ function print_Menu($isMainHome)
 			</td>";
 	
 	
-			if ($i == 2)
+			if ($i == 5)
 			{
 			echo '</tr>';
 			$i = 0;
@@ -1560,7 +1560,7 @@ function print_Menu($isMainHome)
 		}
 		if ($i != 0){
 	
-		while ($i < 3)
+		while ($i < 6)
 		{
 		echo '<td></td>';
 		$i++;
