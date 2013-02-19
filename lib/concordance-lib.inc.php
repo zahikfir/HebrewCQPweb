@@ -373,13 +373,10 @@ function print_control_row()
 	$final_string .= '
 		<select name="redirect">	
 			<option value="newQuery" selected="selected">New query</option>
-			<option value="thin">Thin...</option>
 			<option value="freqList">Frequency breakdown</option>
 			<option value="distribution">Distribution</option>
-			<option value="sort">Sort</option>
 			<option value="collocations">Collocations...</option>
 			<option value="download">Download...</option>
-			<option value="categorise">Categorise...</option>
 			<option value="saveHits">Save current set of hits...</option>
 			' . $custom_options . '
 		</select>

@@ -275,9 +275,6 @@ else
 		<td class="concordgrey" align="center">
 			<select name="redirect">
 				<option value="concBreakdownWords">Frequency breakdown of words only</option>
-				<option value="concBreakdownAnnot">Frequency breakdown of annotation only</option>
-				<option value="concBreakdownBoth">Frequency breakdown of words and annotation</option>
-				<option value="concBreakdownNodeSort">Show hits sorted by node</option>
 				<option value="newQuery" selected="selected">New query</option>
 			</select>
 			<input type="submit" value="Go!"/>'	
@@ -318,6 +315,23 @@ else
 	
 	</head>
 	<body>
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 		<table class="concordtable" width="100%">
 			<tr>
 				<th colspan="6" class="concordtable"><?php echo $description ?></th>
@@ -368,6 +382,22 @@ else
 			}
 			?>
 		</table>
+		<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
+
+
+
+
+
+<div id="footer">
 	<?php
 	
 	

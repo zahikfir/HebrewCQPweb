@@ -79,17 +79,11 @@ function printquery_search()
 						<option value="cqp"<?php if ($select_qmode == 'cqp') echo ' selected="selected"';?>>
 							CQP syntax
 						</option>
-						<option value="sq_nocase"<?php if ($select_qmode == 'sq_nocase') echo ' selected="selected"';?>>
-							Simple query (ignore case)
-						</option>
-						<option value="sq_case"<?php if ($select_qmode == 'sq_case') echo ' selected="selected"';?>>
-							Simple query (case-sensitive)
-						</option>
 					</select>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a target="_blank" href="../doc/Simple_query_language.pdf"
-						onmouseover="return escape('How to compose a search using the Simple Query language')">
-						Simple query language syntax
+					<a target="_blank" href="../doc/MilaXMLSpecification.xlsx"
+						onmouseover="return escape('What all those letters and signs means?')">
+						HebrewCQP Query Syntax
 					</a>
 				</td></tr>
 			
@@ -114,59 +108,7 @@ function printquery_search()
 						?>
 					</select>
 				</td></tr>
-	
-				<tr>
-				<td class="basicbox">Restriction:</td>
-				<input type="hidden" name="del" size="-1" value="begin" />
-				<td class="basicbox">
-					<select name="t">
-						
-						<?php
-						
-						/* first option is always whole corpus */
-						echo '<option value="" ' 
-							. ( $insertSubcorpus == '**search all**' ? 'selected="selected"' : '' )
-							. '>None (search whole corpus)</option>'; 
-						
-						/* create options for the Primary Classification */
-						$sql_query = "select primary_classification_field from corpus_metadata_fixed
-							where corpus = '$corpus_sql_name'";
-						$result = do_mysql_query($sql_query);
-						$row = mysql_fetch_row($result);
-						$field = $row[0];
-						
-						$catlist = metadata_category_listdescs($field);
-						
-						foreach ($catlist as $h => $c)
-							echo "<option value=\"$field~$h\">".(empty($c) ? $h : $c)."</option>\n";
 
-						
-						/* list the user's subcorpora for this corpus */
-						/* including the last set of restrictions used */
-						
-						$sql_query = "select subcorpus_name, numwords, numfiles from saved_subcorpora
-							where corpus = '$corpus_sql_name' and user = '$username' order by subcorpus_name";
-						$result = do_mysql_query($sql_query);
-
-						while (($row = mysql_fetch_assoc($result)) != false)
-						{
-							if ($row['subcorpus_name'] == '__last_restrictions')
-								echo '<option value="__last_restrictions">Last restrictions ('
-									. make_thousands($row['numwords']) . ' words in ' 
-									. make_thousands($row['numfiles']) . ' texts)</option>';
-							else
-								echo '<option value="subcorpus~' . $row['subcorpus_name'] . '"'
-									. ($insertSubcorpus == $row['subcorpus_name'] ? ' selected="selected"' : '')
-									. '>'
-									. 'Subcorpus: ' . $row['subcorpus_name'] . ' ('
-									. make_thousands($row['numwords']) . ' words in ' 
-									. make_thousands($row['numfiles']) . ' texts)</option>';
-						}
-
-						?>
-
-					</select>
-				</td></tr>
 				<input type="hidden" name="del" size="-1" value="end" />			
 				<tr>
 					<td class="basicbox">&nbsp;</td>
@@ -591,8 +533,8 @@ function printquery_keywords()
 		<td class="concordgrey" colspan="4">
 			<center>
 				Keyword lists are compiled by comparing frequency lists you have 
-				created for different subcorpora. <a href="index.php?thisQ=subcorpus&uT=y">Click 
-				here to create/view frequency lists</a>.
+				created for different subcorpora. <a href="index.php?thisQ=subcorpus&uT=y">
+				Click here to create/view subcorpus frequency lists</a>.
 			</center>
 		</td>
 	</tr>
@@ -610,14 +552,6 @@ function printquery_keywords()
 			<td class="concordgeneral">
 				<select name="kwTable2">
 					<?php echo $list_options_list2; ?>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td class="concordgeneral">Compare:</td>
-			<td class="concordgeneral" colspan="3">
-				<select name="kwCompareAtt">
-					<?php echo $att_options; ?>
 				</select>
 			</td>
 		</tr>
@@ -796,21 +730,13 @@ function printquery_freqlist()
 				</select>
 			</td>
 		</tr>
-		<tr>
-			<td class="concordgeneral">View a list based on ...</td>
-			<td class="concordgeneral">
-				<select name="flAtt">
-					<?php echo $att_options; ?>
-				</select>
-			</td>
-		</tr>
 		
 		<tr>
 			<th class="concordtable" colspan="2">Frequency list option settings</th>
 		</tr>
 
 		<tr>
-			<td class="concordgeneral">Filter the list by <em>pattern</em> - show only words/tags ...</td>
+			<td class="concordgeneral">Filter the list by <em>pattern</em> - show only words ...</td>
 			<td class="concordgeneral">
 				<select name="flFilterType">
 					<option value="begin" selected="selected">starting with</option>
@@ -824,7 +750,7 @@ function printquery_freqlist()
 		</tr>
 
 		<tr>
-			<td class="concordgeneral">Filter the list by <em>frequency</em> - show only words/tags ...</td>
+			<td class="concordgeneral">Filter the list by <em>frequency</em> - show only words ...</td>
 			<td class="concordgeneral">
 				with frequency between 
 				<input type="text" name="flFreqLimit1" size="8" />

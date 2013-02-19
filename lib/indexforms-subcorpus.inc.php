@@ -140,12 +140,9 @@ function print_sc_newform()
 							</td>
 							<td class="basicbox">
 								<select name="subcorpusCreateMethod">
-									<option value="metadata">Corpus metadata</option>
-									<option value="metadata_scan">Scan text metadata</option>
-									<option value="manual">Manual entry of filenames</option>
+									<option value="text_id">Create a subcorpus for every text</option>
 									<option value="invert">Invert an existing subcorpus</option>
 									<option value="query">Texts found in a saved query</option>
-									<option value="text_id">Create a subcorpus for every text</option>
 								</select>
 							</td>
 							<td class="basicbox">

@@ -289,12 +289,6 @@ $next_page_exists = ( $n == $per_page ? true : false );
 $description = "Frequency list: {$att_desc[$att]} frequencies in {$table_desc}{$filter_desc}{$range_desc}";
 
 
-
-
-
-
-
-
 if ($download_mode)
 {
 	freqlist_write_download($att_desc[$att], $description, $result);
@@ -315,6 +309,23 @@ else
 	
 	</head>
 	<body>
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 	<table class="concordtable" width="100%">
 		<tr>
 			<th class="concordtable" colspan="4">
@@ -347,6 +358,24 @@ else
 	
 	echo '</table>';	
 	
+	?>
+	<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
+
+
+
+
+
+<div id="footer">
+<?php 
 	/* create page end HTML */
 	print_footer();
 

@@ -215,7 +215,23 @@ else
 	
 	</head>
 	<body>
-	
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 	<?php
 	
 	/* -------------------------------- *
@@ -262,7 +278,6 @@ else
 							$ff_str  = ($class_scheme_to_show == '__filefreqs' ? ' selected="selected"' : '');
 							$all_str = ($class_scheme_to_show == '__all'       ? ' selected="selected"' : '');
 						}
-						echo "\n\t\t\t\t\t<option value=\"__all\"$all_str>General information</option>";
 						echo "\n\t\t\t\t\t<option value=\"__filefreqs\"$ff_str>File-frequency information</option>\n";
 	
 						?>
@@ -353,9 +368,7 @@ else
 			?>
 			<tr>
 				<th class="concordtable" colspan="4">
-					This corpus has no text-classification metadata, so the distribution cannot be shown.
-					You can still select the &ldquo;<em>File-frequency information</em>&rdquo; command 
-					from the menu above.
+					Press Go!
 				</th>
 			</tr>
 			<?php
@@ -399,7 +412,24 @@ else
 	
 	
 	echo '</table>';
-	
+	?>
+	<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
+
+
+
+
+
+<div id="footer">
+<?php 
 	/* create page end HTML */
 	print_footer();
 
