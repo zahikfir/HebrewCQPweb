@@ -75,6 +75,23 @@ function exiterror_beginpage($page_title = NULL)
 			<link rel="stylesheet" type="text/css" href="<?php echo $css_path; ?>" />
 		</head>
 		<body>
+		<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 		<?php
 	}
 }
@@ -121,6 +138,20 @@ function exiterror_endpage($backlink = false)
 			<p class="errormessage"><a href="index.php">Back to corpus home page.</a></p>
 			<?php
 		}
+		?>
+		<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
+
+<div id="footer">
+<?php 
 		print_footer();
 
 	}
