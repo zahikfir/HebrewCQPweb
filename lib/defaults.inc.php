@@ -436,7 +436,7 @@ $mysql_process_name = array(
 
 /* if apache (or the like) is not being used, then $username should be set by code in config.inc.php */
 if (!isset($username))
-	$username = ( isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] :  'HaimS' );
+	$username = ( isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] :  'nlpuser' );
 
 
 
