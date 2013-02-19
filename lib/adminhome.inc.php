@@ -361,7 +361,7 @@ function add_p_attribute_row()
 							<h2>Users</h2>
 							<ul>
 								<?php
-								echo print_menurow_admin('userAdmin', 'Manage users');
+								//echo print_menurow_admin('userAdmin', 'Manage users');
 								echo print_menurow_admin('superuserAccess', 'Manage superuser access');
 								?>
 							</ul>
