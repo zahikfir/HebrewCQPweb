@@ -344,7 +344,7 @@ function add_p_attribute_row()
 							<ul>
 								<?php
 								echo print_menurow_admin('showCorpora', 'Show corpora');
-								echo print_menurow_admin('installCorpus', 'Install new corpus');
+								echo print_menurow_admin('installCorpusIndexed', 'Install new corpus');
 								?>
 							</ul>
 						</li>
@@ -468,7 +468,7 @@ function printquery_showcorpora()
 		<tr>
 			<th class="concordtable">Corpus</th>
 			<th class="concordtable" colspan="2">Visibility</th>
-			<th class="concordtable" colspan="4">Manage...</th>
+			<th class="concordtable" colspan="2">Manage...</th>
 			<th class="concordtable">Delete</th>
 		</tr>
 	<?php
@@ -514,12 +514,6 @@ function printquery_showcorpora()
 				</a>
 			</td>
 			
-			<td class="concordgeneral" align="center">
-				<a class="menuItem" 
-				<?php echo $javalinks . ' href="../' . $r['corpus']?>/index.php?thisQ=userAccess&uT=y">
-					[Access]
-				</a>
-			</td>
 			
 			<td class="concordgeneral" align="center">
 				<a class="menuItem" 
@@ -528,12 +522,6 @@ function printquery_showcorpora()
 				</a>
 			</td>
 
-			<td class="concordgeneral" align="center">
-				<a class="menuItem" 
-				<?php echo $javalinks . ' href="../' . $r['corpus']?>/index.php?thisQ=manageAnnotation&uT=y">
-					[Annotation]
-				</a>
-			</td>
 
 			<td class="concordgeneral" align="center">
 				<a class="menuItem"
@@ -615,7 +603,7 @@ function printquery_installcorpus_indexed()
 			<tr>
 				<td class="concordgeneral">Tick here if the main script in the corpus is right-to-left</td>
 				<td class="concordgeneral">
-					<input type="checkbox" name="corpus_scriptIsR2L" value="1"/>
+					<input type="checkbox" name="corpus_scriptIsR2L" value="1" checked="checked"/>
 				</td>
 			</tr>
 			<tr>
@@ -628,14 +616,6 @@ function printquery_installcorpus_indexed()
 				</td>
 				<td class="concordgeneral">
 					<input type="checkbox" name="corpus_encodeIsLatin1" value="1"/>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" class="concordgrey">
-					&nbsp;<br/>
-					P-attributes (annotation) are read automatically from the registry file.
-					Use "Manage annotation" to add descriptions, tagset names/links, etc. 
-					<br/>&nbsp;
 				</td>
 			</tr>
 		<?php printquery_installcorpus_stylesheetrows(); ?>
@@ -705,7 +685,7 @@ function printquery_installcorpus_unindexed()
 			<tr>
 				<td class="concordgeneral">Tick here if the main script in the corpus is right-to-left</td>
 				<td class="concordgeneral">
-					<input type="checkbox" name="corpus_scriptIsR2L" value="1"/>
+					<input type="checkbox" name="corpus_scriptIsR2L" value="1" checked="checked"/>
 				</td>
 			</tr>
 			<tr>
