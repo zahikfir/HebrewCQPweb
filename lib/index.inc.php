@@ -144,6 +144,7 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 						{
 						case 'search':
 							printquery_search();
+								require("../ourExtensions/ComputeQuery.php");
 							display_system_messages();
 							break;
 						
@@ -254,11 +255,7 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 						}	
 					/* finish off the page */
 					?>
-<div id="ComputeQuery">				
-	<?php echo "[querying your desires]"?>
-	<h1>Query computing: </h1><br/>  							
-	<?php require("../ourExtensions/ComputeQuery.php"); ?>
-</div>
+
 				<div style="clear: both;">&nbsp;</div>	
 				</div>
 				
