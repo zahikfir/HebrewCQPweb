@@ -111,66 +111,6 @@ function printquery_history()
 		/* version giving superuser access to everything */
 		?>
 		<table class="concordtable" width="100%">
-			<tr>
-				<th class="concordtable">Query history: admin controls</th>
-			</tr>
-			<tr>
-				<td class="concordgeneral">
-					<form action="index.php" method="get">
-					<input type="hidden" name="thisQ" value="history"/>
-					<input type="hidden" name="historyView" value="<?php echo $view;?>"/>
-					<table>
-						<tr>
-							<td class="basicbox">Select a user...</td>
-							<td class="basicbox">
-							<select name="showUser">
-								<option value="__ALL" selected="selected">Show all users' history</option>
-								<option value="__RUNNING">Show incompletely-run queries</option>
-								<option value="__SYNERR">Show queries with a syntax error</option>
-					<?php
-					
-					$temp_sql_query = "SELECT distinct(user) FROM query_history  
-										where corpus = '$corpus_sql_name' order by user";
-					$temp_result = do_mysql_query($temp_sql_query);
-				
-					while ($r = mysql_fetch_row($temp_result))
-						echo '<option value="' . $r[0] . '">' . $r[0] . '</option>';
-					unset($temp_result);
-					
-					?>
-							</select>
-							</td>
-							<td class="basicbox"><input type="submit" value="Show history"/></td>
-						</tr>	
-						<tr>
-							<td class="basicbox">Number of records per page</td>
-							<td class="basicbox">	
-								<select name="pp">
-									<option value="10"   <?php if ($per_page == 10)   echo 'selected="selected"'; ?>>10</option>
-									<option value="50"   <?php if ($per_page == 50)   echo 'selected="selected"'; ?>>50</option>
-									<option value="100"  <?php if ($per_page == 100)  echo 'selected="selected"'; ?>>100</option>
-									<option value="250"  <?php if ($per_page == 250)  echo 'selected="selected"'; ?>>250</option>
-									<option value="350"  <?php if ($per_page == 350)  echo 'selected="selected"'; ?>>350</option>
-									<option value="500"  <?php if ($per_page == 500)  echo 'selected="selected"'; ?>>500</option>
-									<option value="1000" <?php if ($per_page == 1000) echo 'selected="selected"'; ?>>1000</option>
-								</select>
-							</td>
-							<td></td>
-						</tr>
-						</tr>
-							<td colspan="3" class="basicbox">
-								<?php echo "<p>$current_string.</p>"; ?>
-							</td>
-						</tr>
-					</table>
-					<!-- this input ALWAYS comes last -->
-					<input type="hidden" name="uT" value="y"/>
-					</form>
-					
-				</td>
-			</tr>
-		</table>
-		<table class="concordtable" width="100%">
 		<?php
 	}
 	else
@@ -657,64 +597,6 @@ function printquery_savedqueries()
 	if (user_is_superuser($username))
 	{
 		?>
-		<table class="concordtable" width="100%">
-			<tr>
-				<th class="concordtable">Saved queries: admin controls</th>
-			</tr>
-			<tr>
-				<td class="concordgeneral">
-					<form action="index.php" method="get">
-					<input type="hidden" name="thisQ" value="savedQs"/>
-					<table>
-						<tr>
-							<td class="basicbox">Select a user...</td>
-							<td class="basicbox">
-							<select name="showUser">
-								<option value="__ALL" selected="selected">all users</option>
-					<?php
-					
-					$temp_sql_query = "SELECT distinct(user) FROM saved_queries where saved = 1 
-										and corpus = '$corpus_sql_name' order by user";
-					$temp_result = do_mysql_query($temp_sql_query);
-				
-
-					while (($r = mysql_fetch_row($temp_result)) !== false)
-						echo '<option value="' . $r[0] . '">' . $r[0] . '</option>';
-					unset($temp_result);
-					
-					?>
-							</select>
-							</td>
-							<td class="basicbox"><input type="submit" value="Show history"/></td>
-						</tr>	
-						<tr>
-							<td class="basicbox">Number of records per page</td>
-							<td class="basicbox">	
-								<select name="pp">
-									<option value="10"   <?php if ($per_page == 10)   echo 'selected="selected"'; ?>>10</option>
-									<option value="50"   <?php if ($per_page == 50)   echo 'selected="selected"'; ?>>50</option>
-									<option value="100"  <?php if ($per_page == 100)  echo 'selected="selected"'; ?>>100</option>
-									<option value="250"  <?php if ($per_page == 250)  echo 'selected="selected"'; ?>>250</option>
-									<option value="350"  <?php if ($per_page == 350)  echo 'selected="selected"'; ?>>350</option>
-									<option value="500"  <?php if ($per_page == 500)  echo 'selected="selected"'; ?>>500</option>
-									<option value="1000" <?php if ($per_page == 1000) echo 'selected="selected"'; ?>>1000</option>
-								</select>
-							</td>
-							<td></td>
-						</tr>
-						</tr>
-							<td colspan="3" class="basicbox">
-								<?php echo "<p>$current_string.</p>"; ?>
-							</td>
-						</tr>
-					</table>
-					<!-- this input ALWAYS comes last -->
-					<input type="hidden" name="uT" value="y"/>
-					</form>
-					
-				</td>
-			</tr>
-		</table>
 		<table class="concordtable" width="100%">
 		<?php
 	}
