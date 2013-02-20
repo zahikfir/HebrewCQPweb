@@ -287,7 +287,6 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 								<?php
 								echo print_menurow_index('history', 'Query history');
 								echo print_menurow_index('savedQs', 'Saved queries');
-								echo print_menurow_index('uploadQ', 'Upload a query');
 								echo print_menurow_index('subcorpus', 'Create/edit subcorpora');
 								?>
 							</ul>
