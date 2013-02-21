@@ -1,9 +1,12 @@
 <?php echo "[querying your desires]" ?>
 <h1>Query computing: </h1><br/>  
 
-<?php	echo " !!! in Construction  !!!"; ?>
+<?php	require("ComputeQueryLogicLayer.php"); ?>
 
 <div id="ComputeQuery">
+	<input type='text' id='QueryWordTextBox' />
+	<button type="button" onclick="ComputeQuery()">Compute Query</button>
+	
 	<br/>
 	<form id="queryComputeForm" onsubmit="return MyFunc()" method="post">
 		<p>

@@ -144,7 +144,7 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 						{
 						case 'search':
 							printquery_search();
-								require("../ourExtensions/ComputeQuery.php");
+								require("../ourExtensions/ComputeQueryGui.php");
 							display_system_messages();
 							break;
 						
