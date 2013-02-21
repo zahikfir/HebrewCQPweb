@@ -4,6 +4,27 @@
 <?php	require("ComputeQueryLogicLayer.php"); ?>
 
 <div id="ComputeQuery">
+	
+	<button type="button" onclick="ChangeCurrentWord(0)">First Word</button>
+	<input type='text' id='MinWordsBetweenResults[0]TextBox' onkeypress="return isNumberKey(event)" style="width:25px" />
+	<input type='text' id='MaxWordsBetweenResults[0]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<button type="button" onclick="ChangeCurrentWord(1)">Second Word</button>
+	<input type='text' id='MinWordsBetweenResults[1]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<input type='text' id='MaxWordsBetweenResults[1]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<button type="button" onclick="ChangeCurrentWord(2)">Third Word</button>
+	<input type='text' id='MinWordsBetweenResults[2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<input type='text' id='MaxWordsBetweenResults[2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<button type="button" onclick="ChangeCurrentWord(3)">Forth Word</button>	
+	<br/><br/>
+	
+	<button type="button" onclick="AppandOperatorAnd()"> '&' (And) </button>
+	<button type="button" onclick="AppandOperatorOr()"> '|' (Or) </button>
+	<button type="button" onclick="AppendOpenBracket()"> '(' (OpenBracket) </button>
+	<button type="button" onclick="AppandCloseBracket()"> ')' (OpenBracket) </button>
+	<button type="button" onclick="ClearCurrnet()"> Clear current word </button>
+	<button type="button" onclick="ClearAll()"> Clear-all </button>
+	<br/><br/>
+	
 	<input type='text' id='QueryWordTextBox' />
 	<button type="button" onclick="ComputeQuery()">Compute Query</button>
 	
