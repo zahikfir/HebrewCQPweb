@@ -126,6 +126,9 @@
 			g_aMinWordsBetweenResults[ii] = null;
 			g_aMaxWordsBetweenResults[ii] = null;
 			g_aWordSearchArr[ii] = null;
+			ClearWordsBetweenResultsTextBox(0);
+			ClearWordsBetweenResultsTextBox(1);
+			ClearWordsBetweenResultsTextBox(2);
 		}
 		WriteQuery();
 	}
