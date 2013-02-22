@@ -7,28 +7,28 @@
 	
 	<button type="button" onclick="ChangeCurrentWord(0)">First Word</button>
 	<button type="button" onclick="ClearCurrnet(0)">Clear</button>
-	<input type='text' id='TargetWord1Textbox' style="width:600px" disabled/> <br/>	
+	<input type='text' id='SingleTargetWord1Textbox' style="width:600px" /> <br/>	
 	<input type='text' id='MinWordsBetweenTargets[1-2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px" />
 	<input type='text' id='MaxWordsBetweenTargets[1-2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<label> - Min/Max words between Targets </label>
 	<br/>
 	<button type="button" onclick="ChangeCurrentWord(1)">Second Word</button>
 	<button type="button" onclick="ClearCurrnet(1)">Clear</button>
-	<input type='text' id='TargetWord2Textbox' style="width:600px" disabled/> <br/>
+	<input type='text' id='SingleTargetWord2Textbox' style="width:600px" /> <br/>
 	<input type='text' id='MinWordsBetweenTargets[2-3]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<input type='text' id='MaxWordsBetweenTargets[2-3]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<label> - Min/Max words between Targets </label>
 	<br/>
 	<button type="button" onclick="ChangeCurrentWord(2)">Third Word</button>
 	<button type="button" onclick="ClearCurrnet(2)">Clear</button>
-	<input type='text' id='TargetWord3Textbox' style="width:600px" disabled/> <br/>
+	<input type='text' id='SingleTargetWord3Textbox' style="width:600px" /> <br/>
 	<input type='text' id='MinWordsBetweenTargets[3-4]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<input type='text' id='MaxWordsBetweenTargets[3-4]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<label> - Min/Max words between Targets </label>
 	<br/>
 	<button type="button" onclick="ChangeCurrentWord(3)">Forth Word</button>
 	<button type="button" onclick="ClearCurrnet(3)">Clear</button>
-	<input type='text' id='TargetWord4Textbox' style="width:600px" disabled/>	
+	<input type='text' id='SingleTargetWord4Textbox' style="width:600px" />	
 	<br/><br/>
 
 	<button type="button" onclick="AppandOperatorAnd()"> '&' (And) </button>

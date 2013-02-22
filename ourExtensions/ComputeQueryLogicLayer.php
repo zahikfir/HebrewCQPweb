@@ -72,10 +72,18 @@
 			g_aMaxWordsBetweenTargets[2] = null;
 	}
 
-	// writing the query into the main query textbox
+	// writing the query into the main query textbox 
+	// writing each target word into it single-target-word textboxes
 	function WriteQuery()
 	{
-		ClearQueryTextbox();
+		ClearQueryTextboxes();
+		WriteMainQuery();
+		WriteSingleTargetWord();
+	}
+
+	// writing the query into the main query textbox 
+	function WriteMainQuery()
+	{
 		var pQueryTextbox = document.getElementById('QueryTextbox');
 
 		// for each target-word
@@ -101,9 +109,29 @@
 					pQueryTextbox.value += "} ";	
 				}
 			}
-		}		
+		}
 	}
 
+	// writing each target word into it single-target-word textboxes
+	function WriteSingleTargetWord()
+	{
+		var pQueryTextbox = document.getElementById('SingleTargetWord1Textbox');
+		if(g_aTargetWordsArr[0])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[0] + "] ");
+
+		pQueryTextbox = document.getElementById('SingleTargetWord2Textbox');
+		if(g_aTargetWordsArr[1])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[1] + "] ");
+
+		pQueryTextbox = document.getElementById('SingleTargetWord3Textbox');
+		if(g_aTargetWordsArr[2])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[2] + "] ");
+
+		pQueryTextbox = document.getElementById('SingleTargetWord4Textbox');
+		if(g_aTargetWordsArr[3])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[3] + "] ");	
+	}
+	
 	// change the current word index to input value, called by the switch word buttons
 	// only current word changing when translating the query GUI. 
 	function ChangeCurrentWord(iCurrentWord)
@@ -112,9 +140,18 @@
 	}
 
 	// clear the main query text box
-	function ClearQueryTextbox()
+	// clear the single target word textboxes
+	function ClearQueryTextboxes()
 	{
 		var pQueryTextbox = document.getElementById('QueryTextbox');
+		pQueryTextbox.value = "";
+		pQueryTextbox = document.getElementById('SingleTargetWord1Textbox');
+		pQueryTextbox.value = "";
+		pQueryTextbox = document.getElementById('SingleTargetWord2Textbox');
+		pQueryTextbox.value = "";
+		pQueryTextbox = document.getElementById('SingleTargetWord3Textbox');
+		pQueryTextbox.value = "";
+		pQueryTextbox = document.getElementById('SingleTargetWord4Textbox');
 		pQueryTextbox.value = "";	
 	}
 
