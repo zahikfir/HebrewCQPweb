@@ -117,67 +117,6 @@ if ($query_record === false)
 
 <table width="100%" class="concordtable" id="tableCollocProximity">
 	<form action="collocation.php" method="get">
-		<tr>
-			<th colspan="3" class="concordtable">
-				Choose settings for proximity-based collocations:
-			</th>
-		</tr>
-		<tr>
-			<?php
-			/* get a list of annotations && the primary && count them for this corpus */
-			$sql_query = "select * from annotation_metadata where corpus = '$corpus_sql_name'";
-			$result_annotations = do_mysql_query($sql_query);
-			
-			$num_annotation_rows = mysql_num_rows($result_annotations);
-			
-			$sql_query = "select primary_annotation from corpus_metadata_fixed 
-				where corpus = '$corpus_sql_name'";
-			$result_fixed = do_mysql_query($sql_query);
-			/* this will only contain a single row */
-			list($primary_att) = mysql_fetch_row($result_fixed);
-
-			?>
-			
-			<td rowspan="<?php echo $num_annotation_rows; ?>" class="concordgrey">
-				Include annotation:
-			</td>
-
-			<?php
-			$i = 1;
-			while (($annotation = mysql_fetch_assoc($result_annotations)) != false)
-			{
-				echo '<td class="concordgeneral" align="left">';
-				if ($annotation['description'] != '')
-					echo $annotation['description'];
-				else
-					echo $annotation['handle'];
-
-				if ($annotation['handle'] == $primary_att) 
-				{
-					$vc_include = 'value="1" checked="checked"';
-					$vc_exclude = 'value="0"';
-				}
-				else
-				{
-					$vc_include = 'value="1"';
-					$vc_exclude = 'value="0" checked="checked"';
-				}
-					
-				echo "</td>
-					<td class=\"concordgeneral\" align=\"center\">
-						<input type=\"radio\" name=\"collAtt_{$annotation['handle']}\" $vc_include />
-						Include
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type=\"radio\" name=\"collAtt_{$annotation['handle']}\" $vc_exclude />
-						Exclude				
-					</td>
-					</tr>
-					";
-				if ($i < $num_annotation_rows)
-					echo '  <tr>';
-				$i++;
-			}
-			?>
 
 		<tr>
 			<td class="concordgrey">Maximum window span:</td>

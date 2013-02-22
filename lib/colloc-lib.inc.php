@@ -554,6 +554,23 @@ function run_script_for_solo_collocation()
 	
 	</head>
 	<body>
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo "Collocation Info"; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 	<table class="concordtable" width="100%">
 		<tr>
 
@@ -673,6 +690,24 @@ function run_script_for_solo_collocation()
 	}
 
 	echo "</table>";
+	?>
+	<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
+
+
+
+
+
+<div id="footer">
+	<?php 
 }
 
 

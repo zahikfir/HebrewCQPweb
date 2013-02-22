@@ -140,7 +140,23 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 
 </head>
 <body>
-
+<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $homepage_welcome_message; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
 <?php
 
 
@@ -265,9 +281,6 @@ $bdo_tag2 = ($corpus_main_script_is_r2l ? '</bdo>' : '');
 		<form action="redirect.php" method="get">
 			<td width="50%" align="center" class="concordgrey">
 				<select name="redirect">
-					<option value="fileInfo" selected="selected">
-						File info for text <?php echo $text_id; ?>
-					</option>
 					<?php 
 					if ($context_size < $default_max_context)
 						echo '<option value="moreContext">More context</option>';
@@ -288,17 +301,6 @@ $bdo_tag2 = ($corpus_main_script_is_r2l ? '</bdo>' : '');
 			)); ?> 
 		</form>
 		
-		
-		
-		<form action="context.php" method="get">
-			<td width="50%" align="center" class="concordgrey">
-				&nbsp;
-				<input type="submit" value="<?php echo $reverseTagButtonText; ?>" />
-				&nbsp;
-			</td>
-		<input type="hidden" name="tagshow" value="<?php echo $reverseTag; ?>" />
-		<?php echo url_printinputs(array(array('tagshow', ""))); ?> 
-		</form>
 	</tr>
 	
 	<tr>
@@ -309,7 +311,22 @@ $bdo_tag2 = ($corpus_main_script_is_r2l ? '</bdo>' : '');
 	</tr>
 	
 </table>
+<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
 
+
+
+
+
+<div id="footer">
 <?php
 
 

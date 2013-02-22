@@ -349,15 +349,6 @@ function add_p_attribute_row()
 							</ul>
 						</li>
 						<li>
-							<h2>Uploads</h2>
-							<ul>
-								<?php
-								echo print_menurow_admin('newUpload', 'Upload a file');
-								echo print_menurow_admin('uploadArea', 'View upload area');
-								?>
-							</ul>
-						</li>
-						<li>
 							<h2>Users</h2>
 							<ul>
 								<?php
@@ -554,15 +545,6 @@ function printquery_installcorpus_indexed()
 				<th colspan="2" class="concordtable">
 					Install a corpus pre-indexed in CWB
 				</th>
-			</tr>
-			<tr>
-				<td colspan="2" class="concordgrey">
-					&nbsp;<br/>
-					<a href="index.php?thisF=installCorpus&uT=y">
-						Click here to install a completely new corpus from files in the upload area.
-					</a>
-					<br/>&nbsp;
-				</td>
 			</tr>
 			<tr>
 				<td class="concordgeneral">Specify a MySQL name for this corpus</td>
