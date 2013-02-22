@@ -16,18 +16,14 @@
 		if( !(g_aMaxWordsBetweenTargets && g_aMaxWordsBetweenTargets && g_aTargetWordsArr) )
 			alert("Sorry Somthing Is wrong with ComputeQuery()");
 		else
-		{
-			var myTextField = document.getElementById('TargetWordTextbox');
-			var myTextField2 = document.getElementById('QueryTextbox');
-			
-				
+		{	
 			UpdateMinMaxWordsBetweenTargets();
-			//TranslateComputeQueryGUI();
+			TranslateComputeQueryGUI();
 			WriteQuery();
 			ResetDropListsMenu();
-	
-	
-			//myTextField2.value += " !The End! " + myTextField.value;
+
+			//var myTextField2 = document.getElementById('QueryTextbox');
+			//myTextField2.value += " Hello world! " + myTextField.value;
 		}
 	}
 
@@ -257,9 +253,9 @@
 	function AppandOperatorOr()
 	{ 
 		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += "|";
+			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += " | ";
 		else
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = "|";
+			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = " | ";
 		WriteQuery();
 	} 
 
@@ -268,11 +264,44 @@
 	function AppandOperatorAnd()
 	{ 
 		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += "&";
+			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += " & ";
 		else
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = "&";
+			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = " & ";
 		WriteQuery();
 	} 
+	/**************************** the below is undocumented  ********************************/	
+	function TranslateComputeQueryGUI()
+	{
+		var FullQuery = null;
+
+		var TempQuery = GetTargetWordQuery();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " ( " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+
+		if(FullQuery)
+		{
+			FullQuery += ")";
+			if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+				g_aTargetWordsArr[g_iCurrentTargetWordIndex] += FullQuery;
+			else
+				g_aTargetWordsArr[g_iCurrentTargetWordIndex] = FullQuery;
+		}		
+	}
+
+	function GetTargetWordQuery()
+	{
+		var ReturnValue = null;
+		var TempTextBox = document.getElementById('TargetWordTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "word=\"" + TempTextBox.value + "\"";
+
+		return ReturnValue;	
+	}
+/**************************** the ablove is undocumented  ********************************/	
 
 	// reset al the drop down list menus 
 	// 'N' is the value of the empty option in the DropList menu
