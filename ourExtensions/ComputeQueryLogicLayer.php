@@ -323,6 +323,13 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		var TempQuery = Getbase();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
 		if(FullQuery)
 		{
 			FullQuery += ")";
@@ -345,6 +352,138 @@
 			ReturnValue = "word=\"" + TempTextBox.value + "\"";
 
 		return ReturnValue;	
+	}
+
+	// read base from DropList and return it in CQP syntax
+	function Getbase()
+	{
+		var bOneFlagIsOn = false; 	// if all flags are off, return null 
+		var ReturnValue = "base=\"";
+
+		var TempDropList = document.getElementById('BaseBaseType');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BaseGender');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BaseNumber');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char		 		 
+
+		TempDropList = document.getElementById('BaseStatus');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BaseDefiniteness');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BaseForeign');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BaseRegister');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+
+		TempDropList = document.getElementById('BaseSpelling');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BasePerson');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+
+		TempDropList = document.getElementById('BaseTense');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BaseBinyan');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BasePolarity');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		TempDropList = document.getElementById('BaseMultiWordPrefix');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+					
+		ReturnValue += "\"";
+		if(bOneFlagIsOn == false)
+			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
+
+		return ReturnValue;
 	}
 	
 	// read prefix1 from DropList and return it in CQP syntax

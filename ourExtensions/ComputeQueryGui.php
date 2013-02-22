@@ -406,7 +406,7 @@
 					<option value="a">positive</option>
 					<option value="b">negative</option>
 				</select>
-			<br/><label><b>multiWord Prefix Exist: </b></label>
+			<br/><label><b>multiWord prefix exist: </b></label>
 				<select name="BaseMultiWordPrefix" id="BaseMultiWordPrefix">
 					<option value="N"></option>
 					<option value="a">1</option>
