@@ -21,9 +21,6 @@
 			TranslateComputeQueryGUI();
 			WriteQuery();
 			ResetDropListsMenu();
-
-			//var myTextField2 = document.getElementById('QueryTextbox');
-			//myTextField2.value += " Hello world! " + myTextField.value;
 		}
 	}
 
@@ -269,11 +266,13 @@
 			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = " & ";
 		WriteQuery();
 	} 
-	/**************************** the below is undocumented  ********************************/	
+
+	// this function gets all the data from the DropLists and return it in CQP syntax
 	function TranslateComputeQueryGUI()
 	{
 		var FullQuery = null;
 
+		// get value of target word textbox in CQP syntax
 		var TempQuery = GetTargetWord();
 		if(TempQuery)
 		{
@@ -281,6 +280,7 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of prefix1 DropLists
 		var TempQuery = GetPrefix1();
 		if(TempQuery)
 		{
@@ -288,6 +288,7 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of prefix2 DropLists
 		var TempQuery = GetPrefix2();
 		if(TempQuery)
 		{
@@ -295,6 +296,7 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of prefix3 DropLists
 		var TempQuery = GetPrefix3();
 		if(TempQuery)
 		{
@@ -302,6 +304,7 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of prefix4 DropLists
 		var TempQuery = GetPrefix4();
 		if(TempQuery)
 		{
@@ -309,6 +312,7 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of prefix5 DropLists
 		var TempQuery = GetPrefix5();
 		if(TempQuery)
 		{
@@ -316,6 +320,7 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of prefix6 DropLists
 		var TempQuery = GetPrefix6();
 		if(TempQuery)
 		{
@@ -323,6 +328,7 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of base DropLists
 		var TempQuery = Getbase();
 		if(TempQuery)
 		{
@@ -330,6 +336,14 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of sufix DropLists
+		var TempQuery = Getsufix();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+		
 		if(FullQuery)
 		{
 			FullQuery += ")";
@@ -339,8 +353,6 @@
 				g_aTargetWordsArr[g_iCurrentTargetWordIndex] = FullQuery;
 		}		
 	}
-
-	/**************************** the ablove is undocumented  ********************************/	
 	
 	// read the target word from texbox and return it in CQP syntax
 	function GetTargetWord()
@@ -479,6 +491,65 @@
 		else
 			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
 					
+		ReturnValue += "\"";
+		if(bOneFlagIsOn == false)
+			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
+
+		return ReturnValue;
+	}
+
+	// read sufix from DropList and return it in CQP syntax
+	function Getsufix()
+	{
+		var bOneFlagIsOn = false; 	// if all flags are off, return null 
+		var ReturnValue = "sufix=\"";
+
+		var TempDropList = document.getElementById('sufixSurface');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char 
+
+		var TempDropList = document.getElementById('sufixFunction');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		var TempDropList = document.getElementById('sufixPerson');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		var TempDropList = document.getElementById('sufixGender');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char 
+
+		var TempDropList = document.getElementById('sufixNumber');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+			
+
 		ReturnValue += "\"";
 		if(bOneFlagIsOn == false)
 			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
