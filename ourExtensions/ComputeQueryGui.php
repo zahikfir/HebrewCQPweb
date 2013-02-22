@@ -34,7 +34,7 @@
 	<button type="button" onclick="AppandOperatorAnd()"> '&' (And) </button>
 	<button type="button" onclick="AppandOperatorOr()"> '|' (Or) </button>
 	<button type="button" onclick="AppendOpenBracket()"> '(' (OpenBracket) </button>
-	<button type="button" onclick="AppandCloseBracket()"> ')' (OpenBracket) </button>
+	<button type="button" onclick="AppandCloseBracket()"> ')' (CloseBracket) </button>
 	<button type="button" onclick="ClearAll()"> Clear-all </button>
 	<br/><br/>
 	
