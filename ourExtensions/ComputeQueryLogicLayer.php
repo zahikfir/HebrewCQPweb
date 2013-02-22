@@ -138,26 +138,26 @@
 	}
 
 	// clear current target-word, max/min word between current target-word, query compute GUI
-	function ClearCurrnet()
+	function ClearCurrnet(Index)
 	{
-		g_aTargetWordsArr[g_iCurrentTargetWordIndex] = null;
+		g_aTargetWordsArr[Index] = null;
 
 		// clear max/min word between current target-word and the target-word before
 		// clear the min/max ... textbox accordingly
-		if(g_iCurrentTargetWordIndex-1 >=0)
+		if(Index-1 >=0)
 		{
-			g_aMinWordsBetweenTargets[g_iCurrentTargetWordIndex-1] = null;
-			g_aMaxWordsBetweenTargets[g_iCurrentTargetWordIndex-1] = null;
-			ClearMinMaxWordsBetweenTargetsTextBox(g_iCurrentTargetWordIndex-1);
+			g_aMinWordsBetweenTargets[Index-1] = null;
+			g_aMaxWordsBetweenTargets[Index-1] = null;
+			ClearMinMaxWordsBetweenTargetsTextBox(Index-1);
 		}
 
 		// clear max/min word between current target-word and the target-word after
 		// clear the min/max ... textbox accordingly
-		if(g_iCurrentTargetWordIndex < MaxTargetWords-1)
+		if(Index < MaxTargetWords-1)
 		{
-			g_aMinWordsBetweenTargets[g_iCurrentTargetWordIndex] = null;
-			g_aMaxWordsBetweenTargets[g_iCurrentTargetWordIndex] = null;
-			ClearMinMaxWordsBetweenTargetsTextBox(g_iCurrentTargetWordIndex);
+			g_aMinWordsBetweenTargets[Index] = null;
+			g_aMaxWordsBetweenTargets[Index] = null;
+			ClearMinMaxWordsBetweenTargetsTextBox(Index);
 		}
 		ResetDropListsMenu();
 		WriteQuery();	
