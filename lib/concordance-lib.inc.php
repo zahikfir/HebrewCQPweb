@@ -34,10 +34,6 @@
 /* FUNCTIONS ONLY USED IN THE CONCORDANCE SCRIPT */
 /* --------------------------------------------- */
 
-
-
-
-
 function prepare_query_string($s)
 {
 	if (preg_match('/\A[^\S]*\Z/', $s))
@@ -1100,21 +1096,62 @@ function say_sorry($instance_name, $sorry_input = "no_solutions")
 	else /* sorry_input is "no_solutions" */
 		$errorText = "There are no matches for your query.";
 	?>
-		<table width="100%">
-			<tr>
-				<td>
-					<!-- To do: proper structural formatting here -->
-					<p class="errormessage"><b>Your query had no results.</b></p>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<p class="errormessage">
-						<?php echo $errorText . "<br/>\n" . $errorType . "\n"; ?>
-					</p>
-				</td>
-			</tr>
-		</table>
+	<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<?php
+		require('settings.inc.php');
+		echo '<title>' . $corpus_title . ' -- CQPweb Concordance</title>';
+		echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
+		?>
+	</head>
+	<body>
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $corpus_title; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
+						<table width="100%">
+							<th class="concordtable">
+									<!-- To do: proper structural formatting here -->
+									<p class="errormessage" ><b>Your query had no results.</b></p>
+							</th>
+							<tr>
+								<td>
+									<p class="errormessage" align="center">
+									 <h1 align="center">
+										<?php echo $errorText . "<br/>\n" . $errorType . "\n"; ?>
+									</h1>
+									</p>
+									<p align="center">
+										Please Try Again.
+									</p>
+								</td>
+							</tr>
+						</table>
+						<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
+	<div id="footer">
 	<?php
 
 	print_footer();
@@ -1128,22 +1165,65 @@ function say_sorry_postprocess()
 {
 	$errorText = "<br/><b>There are no matches left in your query.";
 	?>
-		<table width="100%">
-			<tr>
-				<td>
-					<!-- To do: proper structural formatting here -->
-					<p class="errormessage"><b>No results were left after performing that operation!.</b></p>
-					<p class="errormessage"><b>Press [Back] and try again.</b></p>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<p class="errormessage">
-						<?php echo $errorText . "<br/>\n" . "\n"; ?>
-					</p>
-				</td>
-			</tr>
-		</table>
+	<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<?php
+		require('settings.inc.php');
+		echo '<title>' . $corpus_title . ' -- CQPweb Concordance</title>';
+		echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
+		?>
+	</head>
+	<body>
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><?php  echo $corpus_title; ?></h1>
+					<p></p>
+				</div>
+			</div>
+			<!-- End of header -->
+		</div>
+		<!-- End of header-wrapper -->
+	</div>
+	<!-- End of wrapper -->
+		<div id="widepage">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="maincontent">
+						<table width="100%">
+							<th>
+								<td>
+									<!-- To do: proper structural formatting here -->
+									<p class="errormessage"><b>No results were left after performing that operation!.</b></p>
+									<p class="errormessage"><b>Press [Back] and try again.</b></p>
+								</td>
+							</th>
+							<tr>
+								<td>
+									<p class="errormessage" align="center">
+										<?php echo $errorText . "<br/>\n" . "\n"; ?>
+									</p>
+								</td>
+							</tr>
+						</table>
+						<div style="clear: both;">&nbsp;</div>
+					</div>
+					<!-- End of content -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- End of page-bgbtm -->
+			</div>
+			<!-- End of page-bgtop -->
+		</div>
+		<!-- End of page -->
+
+
+
+
+
+<div id="footer">
 	<?php
 
 	print_footer();
