@@ -189,6 +189,79 @@ function add_p_attribute_row()
 	<div id="Page">
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
+			<div id="sidebar">
+					<?php
+					
+					/* ******************* */
+					/* PRINT SIDE BAR MENU */
+					/* ******************* */
+					
+					?>
+					<ul>
+						<li>
+							<h1>Menu</h1>
+						</li>
+						<li>
+							<h2>Corpora</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('showCorpora', 'Show corpora');
+								echo print_menurow_admin('installCorpusIndexed', 'Install new corpus');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Users</h2>
+							<ul>
+								<?php
+								//echo print_menurow_admin('userAdmin', 'Manage users');
+								echo print_menurow_admin('superuserAccess', 'Manage superuser access');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Database</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('manageProcesses', 'Manage MySQL processes');
+								echo print_menurow_admin('mysqlRestore', 'Reset MySQL database');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>System</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('systemSecurity', 'System security');
+								echo print_menurow_admin('systemDiagnostics', 'System diagnostics');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Misc</h2>
+							<ul>
+								<li><a class="menuItem" href="../"
+								onmouseover="return escape('Go to a list of all corpora on the CQPweb system')">
+								CQPweb main menu
+							    </a></li>
+								<?php
+								echo print_menurow_admin('phpConfig', 'PHP configuration');
+								?>
+							</ul>
+						</li>
+						<li>
+							<h2>Usage Statistics</h2>
+							<ul>
+								<?php
+								echo print_menurow_admin('corpusStatistics', 'Corpus statistics');
+								echo print_menurow_admin('queryStatistics', 'Query statistics');
+								
+								?>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- End of sidebar div -->
 				<div id="content">
 					<?php
 
@@ -327,79 +400,6 @@ function add_p_attribute_row()
 					<div style="clear: both;">&nbsp;</div>	
 				</div>
 				<!-- End of content div -->
-				<div id="sidebar">
-					<?php
-					
-					/* ******************* */
-					/* PRINT SIDE BAR MENU */
-					/* ******************* */
-					
-					?>
-					<ul>
-						<li>
-							<h1>Menu</h1>
-						</li>
-						<li>
-							<h2>Corpora</h2>
-							<ul>
-								<?php
-								echo print_menurow_admin('showCorpora', 'Show corpora');
-								echo print_menurow_admin('installCorpusIndexed', 'Install new corpus');
-								?>
-							</ul>
-						</li>
-						<li>
-							<h2>Users</h2>
-							<ul>
-								<?php
-								//echo print_menurow_admin('userAdmin', 'Manage users');
-								echo print_menurow_admin('superuserAccess', 'Manage superuser access');
-								?>
-							</ul>
-						</li>
-						<li>
-							<h2>Database</h2>
-							<ul>
-								<?php
-								echo print_menurow_admin('manageProcesses', 'Manage MySQL processes');
-								echo print_menurow_admin('mysqlRestore', 'Reset MySQL database');
-								?>
-							</ul>
-						</li>
-						<li>
-							<h2>System</h2>
-							<ul>
-								<?php
-								echo print_menurow_admin('systemSecurity', 'System security');
-								echo print_menurow_admin('systemDiagnostics', 'System diagnostics');
-								?>
-							</ul>
-						</li>
-						<li>
-							<h2>Misc</h2>
-							<ul>
-								<li><a class="menuItem" href="../"
-								onmouseover="return escape('Go to a list of all corpora on the CQPweb system')">
-								CQPweb main menu
-							    </a></li>
-								<?php
-								echo print_menurow_admin('phpConfig', 'PHP configuration');
-								?>
-							</ul>
-						</li>
-						<li>
-							<h2>Usage Statistics</h2>
-							<ul>
-								<?php
-								echo print_menurow_admin('corpusStatistics', 'Corpus statistics');
-								echo print_menurow_admin('queryStatistics', 'Query statistics');
-								
-								?>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<!-- End of sidebar div -->
 				<div style="clear: both;">&nbsp;</div>
 			</div>
 			<!-- End of page-bgbtm div -->
