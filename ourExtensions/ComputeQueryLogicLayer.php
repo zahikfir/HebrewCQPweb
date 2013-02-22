@@ -16,7 +16,7 @@
 		if( !(g_aMaxWordsBetweenTargets && g_aMaxWordsBetweenTargets && g_aTargetWordsArr) )
 			alert("Sorry Somthing Is wrong with ComputeQuery()");
 		else
-		{	
+		{				
 			UpdateMinMaxWordsBetweenTargets();
 			TranslateComputeQueryGUI();
 			WriteQuery();
@@ -274,13 +274,54 @@
 	{
 		var FullQuery = null;
 
-		var TempQuery = GetTargetWordQuery();
+		var TempQuery = GetTargetWord();
 		if(TempQuery)
 		{
-			if(FullQuery) { FullQuery += " ( " + TempQuery; }
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		var TempQuery = GetPrefix1();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		var TempQuery = GetPrefix2();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		var TempQuery = GetPrefix3();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		var TempQuery = GetPrefix4();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		var TempQuery = GetPrefix5();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		var TempQuery = GetPrefix6();
+		if(TempQuery)
+		{
+			if(FullQuery) { FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
 
 		if(FullQuery)
 		{
@@ -292,17 +333,260 @@
 		}		
 	}
 
-	function GetTargetWordQuery()
+	/**************************** the ablove is undocumented  ********************************/	
+	
+	// read the target word from texbox and return it in CQP syntax
+	function GetTargetWord()
 	{
 		var ReturnValue = null;
+
 		var TempTextBox = document.getElementById('TargetWordTextbox');
 		if(TempTextBox.value)
 			ReturnValue = "word=\"" + TempTextBox.value + "\"";
 
 		return ReturnValue;	
 	}
-/**************************** the ablove is undocumented  ********************************/	
+	
+	// read prefix1 from DropList and return it in CQP syntax
+	function GetPrefix1()
+	{
+		var bOneFlagIsOn = false; 	// if all flags are off, return null 
+		var ReturnValue = "prefix1=\"";
 
+		var TempDropList = document.getElementById('prefix1surface');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char 
+
+		var TempDropList = document.getElementById('prefix1function');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		var TempDropList = document.getElementById('prefix1multiword');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		ReturnValue += "\"";
+		if(bOneFlagIsOn == false)
+			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
+
+		return ReturnValue;
+	}
+
+	// read prefix2 from DropList and return it in CQP syntax
+	function GetPrefix2()
+	{
+		var bOneFlagIsOn = false; 	// if all flags are off, return null 
+		var ReturnValue = "prefix2=\"";
+
+		var TempDropList = document.getElementById('prefix2surface');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char 
+
+		var TempDropList = document.getElementById('prefix2function');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		var TempDropList = document.getElementById('prefix2multiword');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		ReturnValue += "\"";
+		if(bOneFlagIsOn == false)
+			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
+
+		return ReturnValue;
+	}
+
+	// read prefix3 from DropList and return it in CQP syntax
+	function GetPrefix3()
+	{
+		var bOneFlagIsOn = false; 	// if all flags are off, return null 
+		var ReturnValue = "prefix3=\"";
+
+		var TempDropList = document.getElementById('prefix3surface');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char 
+
+		var TempDropList = document.getElementById('prefix3function');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		var TempDropList = document.getElementById('prefix3multiword');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		ReturnValue += "\"";
+		if(bOneFlagIsOn == false)
+			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
+
+		return ReturnValue;
+	}
+
+	// read prefix4 from DropList and return it in CQP syntax
+	function GetPrefix4()
+	{
+		var bOneFlagIsOn = false; 	// if all flags are off, return null 
+		var ReturnValue = "prefix4=\"";
+
+		var TempDropList = document.getElementById('prefix4surface');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char 
+
+		var TempDropList = document.getElementById('prefix4function');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		var TempDropList = document.getElementById('prefix4multiword');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		ReturnValue += "\"";
+		if(bOneFlagIsOn == false)
+			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
+
+		return ReturnValue;
+	}
+
+	// read prefix5 from DropList and return it in CQP syntax
+	function GetPrefix5()
+	{
+		var bOneFlagIsOn = false; 	// if all flags are off, return null 
+		var ReturnValue = "prefix5=\"";
+
+		var TempDropList = document.getElementById('prefix5surface');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char 
+
+		var TempDropList = document.getElementById('prefix5function');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		var TempDropList = document.getElementById('prefix5multiword');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		ReturnValue += "\"";
+		if(bOneFlagIsOn == false)
+			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
+
+		return ReturnValue;
+	}
+
+	// read prefix1 from DropList and return it in CQP syntax
+	function GetPrefix6()
+	{
+		var bOneFlagIsOn = false; 	// if all flags are off, return null 
+		var ReturnValue = "prefix6=\"";
+
+		var TempDropList = document.getElementById('prefix6surface');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char 
+
+		var TempDropList = document.getElementById('prefix6function');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		var TempDropList = document.getElementById('prefix6multiword');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
+
+		ReturnValue += "\"";
+		if(bOneFlagIsOn == false)
+			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
+
+		return ReturnValue;
+	}
+	
 	// reset al the drop down list menus 
 	// 'N' is the value of the empty option in the DropList menu
 	function ResetDropListsMenu()
