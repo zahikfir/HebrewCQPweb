@@ -3,17 +3,17 @@
 
 <?php	require("ComputeQueryLogicLayer.php"); ?>
 
-<div id="ComputeQuery">
+<div id="ComputeQueryGUI">
 	
 	<button type="button" onclick="ChangeCurrentWord(0)">First Word</button>
-	<input type='text' id='MinWordsBetweenResults[0]TextBox' onkeypress="return isNumberKey(event)" style="width:25px" />
-	<input type='text' id='MaxWordsBetweenResults[0]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<input type='text' id='MinWordsBetweenTargets[1-2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px" />
+	<input type='text' id='MaxWordsBetweenTargets[1-2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<button type="button" onclick="ChangeCurrentWord(1)">Second Word</button>
-	<input type='text' id='MinWordsBetweenResults[1]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
-	<input type='text' id='MaxWordsBetweenResults[1]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<input type='text' id='MinWordsBetweenTargets[2-3]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<input type='text' id='MaxWordsBetweenTargets[2-3]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<button type="button" onclick="ChangeCurrentWord(2)">Third Word</button>
-	<input type='text' id='MinWordsBetweenResults[2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
-	<input type='text' id='MaxWordsBetweenResults[2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<input type='text' id='MinWordsBetweenTargets[3-4]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
+	<input type='text' id='MaxWordsBetweenTargets[3-4]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<button type="button" onclick="ChangeCurrentWord(3)">Forth Word</button>	
 	<br/><br/>
 	
@@ -25,11 +25,12 @@
 	<button type="button" onclick="ClearAll()"> Clear-all </button>
 	<br/><br/>
 	
-	<input type='text' id='QueryWordTextBox' />
+	<input type='text' id='TargetWordTextbox' />
 	<button type="button" onclick="ComputeQuery()">Compute Query</button>
-	
+	<button type="button" onclick="ResetDropListsMenu()"> Reset menu </button>
 	<br/>
 	<form id="queryComputeForm" onsubmit="return MyFunc()" method="post">
+	
 		<p>
 		<label><b><u>First prefix</b></u></label>
 			<br/><label><b>surface: </b></label>
