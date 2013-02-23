@@ -34,7 +34,7 @@ h3 {
 }
 
 Transparent{
-	color: #ffffff;
+	color: transparent;
 }
 
 p, ul, ol {
@@ -248,9 +248,8 @@ img.aligncenter {
 /* Page */
 
 #widepage{
-	margin: 0 auto;
-	padding: 0;
 	background-color: #FFFFFF;
+	display:inline-block;
 }
 
 #page {
