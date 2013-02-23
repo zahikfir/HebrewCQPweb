@@ -32,6 +32,7 @@
 			TranslateComputeQueryGUI();
 			WriteQuery();
 			ResetDropListsMenu();
+			ClearAllUserInputTextBoxes();
 		}
 	}
 	
@@ -41,6 +42,7 @@
 	function OnPageReaload()
 	{
 		ResetDropListsMenu();
+		ClearAllUserInputTextBoxes();
 		ClearSingleTargetTextboxes();
 		ClearMinMaxWordsBetweenTargetsTextBox(0);
 		ClearMinMaxWordsBetweenTargetsTextBox(1);
@@ -81,6 +83,13 @@
  		var DropDownList = document.getElementById(DropListId);
  		DropDownList.value = 'N';
  	}
+
+ 	// gets Textbox ID, clear it
+	function ClearTextBox(TextBoxID)
+	{
+ 		var TempTextBox = document.getElementById(TextBoxID);
+		TempTextBox.value = null;
+	}
 </script>
 
 
@@ -92,7 +101,7 @@
 	// writing each target word into it single-target-word textboxes
 	function WriteQuery()
 	{
-		ClearMainQueryTextBox();
+		ClearTextBox('QueryTextbox');
 		ClearSingleTargetTextboxes();
 		WriteMainQuery();
 		WriteSingleTargetWord();
@@ -168,13 +177,23 @@
 		pQueryTextbox.value = "";	
 	}
 
-	// clear the main query text box
-	function ClearMainQueryTextBox()
+	// clear all the user input textboxes
+	function ClearAllUserInputTextBoxes()
 	{
-		var pQueryTextbox = document.getElementById('QueryTextbox');
-		pQueryTextbox.value = "";
+		ClearTextBox('TargetWordTextbox');
+		ClearTextBox('ExpansionTextbox');
+		ClearTextBox('FunctionTextbox');
+		ClearTextBox('RootTextbox');
+		ClearTextBox('SubcoordinatingTextbox');
+		ClearTextBox('MoodTextbox');
+		ClearTextBox('ValueTextbox');
+		ClearTextBox('IdTextbox');
+		ClearTextBox('PosTextbox');
+		ClearTextBox('ConsecutiveTextbox');
+		ClearTextBox('MultiWordTextbox');
+		ClearTextBox('MweTextbox');
 	}
-
+	
 	// clear target-word array, max/min word between target-words arrayes, query compute GUI
 	function ClearAll()
 	{
@@ -191,11 +210,12 @@
 		ClearMinMaxWordsBetweenTargetsTextBox(1);
 		ClearMinMaxWordsBetweenTargetsTextBox(2);
 		ResetDropListsMenu();
+		ClearAllUserInputTextBoxes();
 		WriteQuery();
 	}
 
 	// clear current target-word, max/min word between current target-word, query compute GUI
-	function ClearCurrnet(Index)
+	function ClearTargetWord(Index)
 	{
 		g_aTargetWordsArr[Index] = null;
 
@@ -216,7 +236,6 @@
 			g_aMaxWordsBetweenTargets[Index] = null;
 			ClearMinMaxWordsBetweenTargetsTextBox(Index);
 		}
-		ResetDropListsMenu();
 		WriteQuery();	
 	}
 
@@ -248,6 +267,12 @@
 			alert("Somthing is Wrong in ClearMinMaxWordsBetweenTargetsTextBox() ");
 			break;	
 		}
+	}
+
+	function ClearUserMenu()
+	{
+		ResetDropListsMenu();
+		ClearAllUserInputTextBoxes();
 	}
 </script>
 
@@ -424,7 +449,96 @@
 			if(FullQuery) {	FullQuery += " & " + TempQuery; }
 			else { FullQuery = "(" + TempQuery; }
 		}
-		
+
+		// get the CQP syntax of Expansion Textbox
+		var TempQuery = GetExpansion();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// get the CQP syntax of Function Textbox
+		var TempQuery = GetFunction();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// get the CQP syntax of Root Textbox
+		var TempQuery = getRoot();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// get the CQP syntax of Subcoordinating Textbox
+		var TempQuery = GetSubcoordinating();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// get the CQP syntax of Mood Textbox
+		var TempQuery = GetMood();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// get the CQP syntax of Value Textbox
+		var TempQuery = GetValue();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+		 
+		// get the CQP syntax of Id Textbox
+		var TempQuery = GetId();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// get the CQP syntax of Pos Textbox
+		var TempQuery = GetPos();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// get the CQP syntax of Consecutive Textbox
+		var TempQuery = GetConsecutive();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+		  
+		// get the CQP syntax of MultiWord Textbox
+		var TempQuery = GetMultiWord();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// get the CQP syntax of MWE Textbox
+		var TempQuery = GetMWE();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
+		// update the global target word with the new added query if needed
 		if(FullQuery)
 		{
 			FullQuery += ")";
@@ -436,23 +550,161 @@
 	} 	
 </script>
 
+<!----------------------------------------------------------------------------------------------------->
+<!-------------------------------------- TextBoxes Translating ---------------------------------------->
+<!----------------------------------------------------------------------------------------------------->
+<script>
+	//read the target word from texbox and return it in CQP syntax
+	function GetTargetWord()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('TargetWordTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "word=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read Expansion from texbox and return it in CQP syntax
+	function GetExpansion()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('ExpansionTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "expansion=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read Function from texbox and return it in CQP syntax
+	function GetFunction()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('FunctionTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "function=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read Root from texbox and return it in CQP syntax
+	function getRoot()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('RootTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "root=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read Subcoordinating from texbox and return it in CQP syntax
+	function GetSubcoordinating()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('SubcoordinatingTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "subcoordinating=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read Mood from texbox and return it in CQP syntax
+	function GetMood()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('MoodTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "mood=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read Value from texbox and return it in CQP syntax
+	function GetValue()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('ValueTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "value=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+	
+	//read Id from texbox and return it in CQP syntax
+	function GetId()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('IdTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "id=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read Pos from texbox and return it in CQP syntax
+	function GetPos()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('PosTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "pos=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read Consecutive from texbox and return it in CQP syntax
+	function GetConsecutive()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('ConsecutiveTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "consecutive=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+	
+	//read MultiWord from texbox and return it in CQP syntax
+	function GetMultiWord()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('MultiWordTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "multiword=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read MWE from texbox and return it in CQP syntax
+	function GetMWE()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('MweTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "type=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+</script>
+
+
 
 <!----------------------------------------------------------------------------------------------------->
 <!------------------------------------ Drop Down Lists Translating ------------------------------------>
 <!----------------------------------------------------------------------------------------------------->
 <script>
-	// read the target word from texbox and return it in CQP syntax
-	function GetTargetWord()
-	{
-		var ReturnValue = null;
-
-		var TempTextBox = document.getElementById('TargetWordTextbox');
-		if(TempTextBox.value)
-			ReturnValue = "word=\"" + TempTextBox.value + "\"";
-
-		return ReturnValue;	
-	}
-
 	// read base from DropList and return it in CQP syntax
 	function Getbase()
 	{
@@ -983,10 +1235,6 @@
 	// 'N' is the value of the empty option in the DropList menu
 	function ResetDropListsMenu()
 	{
-		// reset the target-word textbox
-		var TempTextBox = document.getElementById('TargetWordTextbox');
-		TempTextBox.value = null;
-
 		// reset the prefix1 DropLists
 		ChooseDropListEmptyOption('prefix1surface');
 		ChooseDropListEmptyOption('prefix1function');

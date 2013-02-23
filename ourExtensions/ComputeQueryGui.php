@@ -6,28 +6,28 @@
 <div id="ComputeQueryGUI">
 	
 	<button type="button" onclick="ChangeCurrentWord(0)">First Word</button>
-	<button type="button" onclick="ClearCurrnet(0)">Clear</button>
+	<button type="button" onclick="ClearTargetWord(0)">Clear</button>
 	<input type='text' id='SingleTargetWord1Textbox' style="width:600px" disabled/> <br/>	
 	<input type='text' id='MinWordsBetweenTargets[1-2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px" />
 	<input type='text' id='MaxWordsBetweenTargets[1-2]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<label> - Min/Max words between Targets </label>
 	<br/>
 	<button type="button" onclick="ChangeCurrentWord(1)">Second Word</button>
-	<button type="button" onclick="ClearCurrnet(1)">Clear</button>
+	<button type="button" onclick="ClearTargetWord(1)">Clear</button>
 	<input type='text' id='SingleTargetWord2Textbox' style="width:600px" disabled/> <br/>
 	<input type='text' id='MinWordsBetweenTargets[2-3]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<input type='text' id='MaxWordsBetweenTargets[2-3]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<label> - Min/Max words between Targets </label>
 	<br/>
 	<button type="button" onclick="ChangeCurrentWord(2)">Third Word</button>
-	<button type="button" onclick="ClearCurrnet(2)">Clear</button>
+	<button type="button" onclick="ClearTargetWord(2)">Clear</button>
 	<input type='text' id='SingleTargetWord3Textbox' style="width:600px" disabled/> <br/>
 	<input type='text' id='MinWordsBetweenTargets[3-4]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<input type='text' id='MaxWordsBetweenTargets[3-4]TextBox' onkeypress="return isNumberKey(event)" style="width:25px"/>
 	<label> - Min/Max words between Targets </label>
 	<br/>
 	<button type="button" onclick="ChangeCurrentWord(3)">Forth Word</button>
-	<button type="button" onclick="ClearCurrnet(3)">Clear</button>
+	<button type="button" onclick="ClearTargetWord(3)">Clear</button>
 	<input type='text' id='SingleTargetWord4Textbox' style="width:600px" disabled/>	
 	<br/><br/>
 
@@ -36,14 +36,27 @@
 	<button type="button" onclick="AppendOpenBracket()"> '(' (OpenBracket) </button>
 	<button type="button" onclick="AppandCloseBracket()"> ')' (CloseBracket) </button>
 	<button type="button" onclick="ClearAll()"> Clear-all </button>
-	<br/><br/>
-	
-	<input type='text' id='TargetWordTextbox' />
 	<button type="button" onclick="ComputeQuery()">Compute Query</button>
-	<button type="button" onclick="ResetDropListsMenu()"> Reset menu </button>
+	<button type="button" onclick="ClearUserMenu()"> Reset menu </button>
+	<br/><br/>
+
+	<input type='text' id='TargetWordTextbox' /><label> - word </label></br>
+	<input type='text' id='ExpansionTextbox' /><label> - expansion </label></br>
+	<input type='text' id='FunctionTextbox' /><label> - function </label></br>
+	<input type='text' id='RootTextbox' /><label> - root </label></br>
+	<input type='text' id='SubcoordinatingTextbox' /><label> - subcoordinating </label></br>
+	<input type='text' id='MoodTextbox' /><label> - mood </label></br>
+	<input type='text' id='ValueTextbox' /><label> - value </label></br>
+	<input type='text' id='IdTextbox' /><label> - id </label></br>
+	<input type='text' id='PosTextbox' /><label> - pos </label></br>
+	<input type='text' id='ConsecutiveTextbox' /><label> - consecutive </label></br>
+	<input type='text' id='MultiWordTextbox' /><label> - multiWord </label></br>
+	<input type='text' id='MweTextbox' /><label> - MWE Type </label></br>
+	<br/>	
+	<button type="button" onclick="ResetDropListsMenu()"> Reset DropLists </button>
+	<button type="button" onclick="ClearAllUserInputTextBoxes()"> Reset TextBoxes </button>
 	<br/>
-	<form id="queryComputeForm" onsubmit="return MyFunc()" method="post">
-	
+	<form id="queryComputeForm" onsubmit="return MyFunc()" method="post">	
 		<p>
 		<label><b><u>First prefix</b></u></label>
 			<br/><label><b>surface: </b></label>
