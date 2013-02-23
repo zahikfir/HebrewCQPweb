@@ -33,6 +33,10 @@ h3 {
 	font-size: 1.6em;
 }
 
+Transparent{
+	color: #ffffff;
+}
+
 p, ul, ol {
 	margin-top: 0;
 	line-height: 180%;

@@ -852,7 +852,7 @@ $xml_after_string =  ' ' . htmlspecialchars($xml_after_array[$i]);
 	if ($type == 'node')
 		$main_string = trim($main_string);
 
-	return array($main_string, $other_string);
+	return array('<Transparent>י</Transparent>'. $main_string.'<Transparent>י</Transparent>', $other_string);
 }
 
 /** Pass in the (printed) line number, get back a relative URL to the context page. */
