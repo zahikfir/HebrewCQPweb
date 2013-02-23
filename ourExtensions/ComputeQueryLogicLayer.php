@@ -56,6 +56,31 @@
           return false;
        return true;
     }
+
+	// gets: DropList ID (DropDownListID), option value (Value), option label (Label)
+	// insert an option with Label and Value into the DropDownList with this ID
+    function AddDropListOption(DropDownListId, Value, Label) {
+		var DropDownList = document.getElementById(DropDownListId);
+        var TempOption = document.createElement('option');
+        TempOption.value = Value;
+        TempOption.text = Label;
+        DropDownList.options.add(TempOption);
+    }
+
+ 	// gets DropList ID, clear all options in this DropList 
+ 	// inserts empty label option with value 'N'
+ 	function ClearAllDropListOptions(DropListId)
+ 	{ 
+		document.getElementById(DropListId).options.length = 0;
+		AddDropListOption(DropListId,'N',"");
+ 	}
+
+ 	// gets DropList ID, choose the empty option in this DropList
+ 	function ChooseDropListEmptyOption(DropListId)
+ 	{
+ 		var DropDownList = document.getElementById(DropListId);
+ 		DropDownList.value = 'N';
+ 	}
 </script>
 
 
@@ -416,7 +441,6 @@
 <!------------------------------------ Drop Down Lists Translating ------------------------------------>
 <!----------------------------------------------------------------------------------------------------->
 <script>
-
 	// read the target word from texbox and return it in CQP syntax
 	function GetTargetWord()
 	{
@@ -553,7 +577,16 @@
 		}
 		else
 			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char
-					
+
+		TempDropList = document.getElementById('BaseType');
+		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
+		{
+			ReturnValue += TempDropList.value;
+			bOneFlagIsOn = true;
+		}
+		else
+			ReturnValue += "."; 	// '.' in cqp syntax represent gloabl char	
+			
 		ReturnValue += "\"";
 		if(bOneFlagIsOn == false)
 			ReturnValue = null;		// if all flags are off, (all dropLists are empty) return null
@@ -865,100 +898,146 @@
 <!------------------------------------ Drop Down Lists manipulating ----------------------------------->
 <!----------------------------------------------------------------------------------------------------->
 <script>
+	// change BaseType DropList options according to the user choice in BaseBaseType DropList 
+	function SetOptionsOfBaseTypeDropList(ValueOfBaseBaseTypeDropList)
+	{
+		ClearAllDropListOptions('BaseType');
+		switch(ValueOfBaseBaseTypeDropList)
+		{
+		case 'd':  // case BaseBaseType is conjunction
+			AddDropListOption('BaseType','a','coordinating');
+			AddDropListOption('BaseType','b','subordinating');
+			AddDropListOption('BaseType','c','relativizing');
+			break;
+		case 'f':	// case BaseBaseType is interrogative
+			AddDropListOption('BaseType','a','pronoun');
+			AddDropListOption('BaseType','b','proadverb');
+			AddDropListOption('BaseType','c','prodet');
+			AddDropListOption('BaseType','d','yesno');
+			break;
+		case 'l':	// case BaseBaseType is properName
+			AddDropListOption('BaseType','a','interrogative');
+			AddDropListOption('BaseType','b','personal');
+			AddDropListOption('BaseType','c','demonstrative');
+			AddDropListOption('BaseType','d','impersonal');
+			AddDropListOption('BaseType','e','relativizer');
+			AddDropListOption('BaseType','f','reflexive');
+			break;
+		case 'm':	// case BaseBaseType is punctuation
+			AddDropListOption('BaseType','a','person');
+			AddDropListOption('BaseType','b','location');
+			AddDropListOption('BaseType','c','organization');
+			AddDropListOption('BaseType','d','product');
+			AddDropListOption('BaseType','e','dateTime');
+			AddDropListOption('BaseType','f','country');
+			AddDropListOption('BaseType','g','town');
+			AddDropListOption('BaseType','h','language');
+			AddDropListOption('BaseType','i','symbol');
+			AddDropListOption('BaseType','j','art');
+			AddDropListOption('BaseType','k','other');
+			break;
+		case 'n':	// case BaseBaseType is 
+			AddDropListOption('BaseType','a','letter');
+			AddDropListOption('BaseType','b','dash');
+			AddDropListOption('BaseType','c','diacritic');
+			AddDropListOption('BaseType','d','apostrophe');
+			AddDropListOption('BaseType','e','whitespace');
+			AddDropListOption('BaseType','f','bullet');
+			AddDropListOption('BaseType','g','connector');
+			AddDropListOption('BaseType','h','open');
+			AddDropListOption('BaseType','i','close');
+			AddDropListOption('BaseType','j','symbol');
+			AddDropListOption('BaseType','k','mathSymbol');
+			AddDropListOption('BaseType','l','currencySymbol');
+			AddDropListOption('BaseType','m','Separator');
+			AddDropListOption('BaseType','n','lineSeparator');
+			break;
+		case 'o':	// case BaseBaseType is numberExpression
+			AddDropListOption('BaseType','a','date');
+			AddDropListOption('BaseType','b','time');
+			AddDropListOption('BaseType','c','gameScore');
+			break;
+		case 'p':	// case BaseBaseType is quantifier
+			AddDropListOption('BaseType','a','amount');
+			AddDropListOption('BaseType','b','partitive');
+			AddDropListOption('BaseType','c','determiner');
+			break;
+		case 'r':	// case BaseBaseType is participle
+			AddDropListOption('BaseType','a','noun');
+			AddDropListOption('BaseType','b','adjective');
+			AddDropListOption('BaseType','c','verb');
+			break;
+		case 's':	// case BaseBaseType is numeral
+			AddDropListOption('BaseType','a','numeral ordinal');
+			AddDropListOption('BaseType','b','numeral cardinal');
+			AddDropListOption('BaseType','c','numeral fractional');
+			AddDropListOption('BaseType','d','literal number');
+			AddDropListOption('BaseType','e','gematria');
+			break;
+		default:
+				break;
+		}		
+	}
+ 
 	// reset al the drop down list menus 
 	// 'N' is the value of the empty option in the DropList menu
 	function ResetDropListsMenu()
 	{
 		// reset the target-word textbox
-		var TempDropList = document.getElementById('TargetWordTextbox');
-		TempDropList.value = null;
+		var TempTextBox = document.getElementById('TargetWordTextbox');
+		TempTextBox.value = null;
 
 		// reset the prefix1 DropLists
-		TempDropList = document.getElementById('prefix1surface');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix1function');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix1multiword');
-		TempDropList.value = 'N';
-
+		ChooseDropListEmptyOption('prefix1surface');
+		ChooseDropListEmptyOption('prefix1function');
+		ChooseDropListEmptyOption('prefix1multiword');
+		
 		// reset the prefix2 DropLists
-		TempDropList = document.getElementById('prefix2surface');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix2function');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix2multiword');
-		TempDropList.value = 'N';
-
+		ChooseDropListEmptyOption('prefix2surface');
+		ChooseDropListEmptyOption('prefix2function');
+		ChooseDropListEmptyOption('prefix2multiword');
+		
 		// reset the prefix3 DropLists
-		TempDropList = document.getElementById('prefix3surface');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix3function');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix3multiword');
-		TempDropList.value = 'N';
+		ChooseDropListEmptyOption('prefix3surface');
+		ChooseDropListEmptyOption('prefix3function');
+		ChooseDropListEmptyOption('prefix3multiword');
 
 		// reset the prefix4 DropLists
-		TempDropList = document.getElementById('prefix4surface');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix4function');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix4multiword');
-		TempDropList.value = 'N';
+		ChooseDropListEmptyOption('prefix4surface');
+		ChooseDropListEmptyOption('prefix4function');
+		ChooseDropListEmptyOption('prefix4multiword');
 
 		// reset the prefix5 DropLists 
-		TempDropList = document.getElementById('prefix5surface');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix5function');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix5multiword');
-		TempDropList.value = 'N';
+		ChooseDropListEmptyOption('prefix5surface');
+		ChooseDropListEmptyOption('prefix5function');
+		ChooseDropListEmptyOption('prefix5multiword');
 
 		// reset the prefix6 DropLists
-		TempDropList = document.getElementById('prefix6surface');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix6function');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('prefix6multiword');
-		TempDropList.value = 'N';
+		ChooseDropListEmptyOption('prefix6surface');
+		ChooseDropListEmptyOption('prefix6function');
+		ChooseDropListEmptyOption('prefix6multiword');
 
 		// reset the Base DropLists
-		TempDropList = document.getElementById('BaseBaseType');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseGender');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseNumber');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseStatus');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseDefiniteness');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseForeign');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseRegister');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseSpelling');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BasePerson');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseTense');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseBinyan');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BasePolarity');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('BaseMultiWordPrefix');
-		TempDropList.value = 'N';
+		ChooseDropListEmptyOption('BaseBaseType');
+		ChooseDropListEmptyOption('BaseGender');
+		ChooseDropListEmptyOption('BaseNumber');
+		ChooseDropListEmptyOption('BaseStatus');
+		ChooseDropListEmptyOption('BaseDefiniteness');
+		ChooseDropListEmptyOption('BaseForeign');
+		ChooseDropListEmptyOption('BaseRegister');
+		ChooseDropListEmptyOption('BaseSpelling');
+		ChooseDropListEmptyOption('BasePerson');
+		ChooseDropListEmptyOption('BaseTense');
+		ChooseDropListEmptyOption('BaseBinyan');
+		ChooseDropListEmptyOption('BasePolarity');
+		ChooseDropListEmptyOption('BaseMultiWordPrefix');
+		ChooseDropListEmptyOption('BaseType');
 
 		// reset the sufix DropLists
-		TempDropList = document.getElementById('sufixSurface');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('sufixFunction');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('sufixPerson');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('sufixGender');
-		TempDropList.value = 'N';
-		TempDropList = document.getElementById('sufixNumber');
-		TempDropList.value = 'N';
+		ChooseDropListEmptyOption('sufixSurface');
+		ChooseDropListEmptyOption('sufixFunction');
+		ChooseDropListEmptyOption('sufixPerson');
+		ChooseDropListEmptyOption('sufixGender');
+		ChooseDropListEmptyOption('sufixNumber');
 	} 
 </script>

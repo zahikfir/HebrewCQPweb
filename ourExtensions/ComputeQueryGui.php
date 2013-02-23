@@ -293,7 +293,7 @@
 	
 		<br/><br/><label><b><u>Base</b></u></label>
 			<br/><label><b>base type: </b></label>
-				<select name="BaseBaseType" id="BaseBaseType">
+				<select name="BaseBaseType" id="BaseBaseType" onchange="SetOptionsOfBaseTypeDropList(this.value)" >
 					<option value="N"></option>
 					<option value="a">adjective</option>
 					<option value="b">adverb</option>
@@ -412,6 +412,10 @@
 					<option value="a">1</option>
 					<option value="b">0</option>
 				</select>
+			<br/><label><b>type: </b></label>
+				<select name="BaseType" id="BaseType">
+					<option value="N"></option>
+				</select>
 	
 	
 	
@@ -505,9 +509,6 @@
 				<option value="y"></option>
 				<option value="z"></option>
 			</select>
-
-
-
 -->
 
 
