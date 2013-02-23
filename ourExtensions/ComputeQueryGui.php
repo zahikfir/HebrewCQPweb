@@ -41,6 +41,8 @@
 	<br/><br/>
 
 	<input type='text' id='TargetWordTextbox' /><label> - word </label></br>
+	<input type='text' id='LexiconItemTextbox' /><label> - lexiconItem </label></br>
+	</br>
 	<input type='text' id='ExpansionTextbox' /><label> - expansion </label></br>
 	<input type='text' id='FunctionTextbox' /><label> - function </label></br>
 	<input type='text' id='RootTextbox' /><label> - root </label></br>

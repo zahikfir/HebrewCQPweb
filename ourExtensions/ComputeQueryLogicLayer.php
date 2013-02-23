@@ -181,6 +181,7 @@
 	function ClearAllUserInputTextBoxes()
 	{
 		ClearTextBox('TargetWordTextbox');
+		ClearTextBox('LexiconItemTextbox');
 		ClearTextBox('ExpansionTextbox');
 		ClearTextBox('FunctionTextbox');
 		ClearTextBox('RootTextbox');
@@ -386,6 +387,14 @@
 			else { FullQuery = "(" + TempQuery; }
 		}
 
+		// get the CQP syntax of LexiconItem Textbox
+		var TempQuery = GetLexiconItem();
+		if(TempQuery)
+		{
+			if(FullQuery) {	FullQuery += " & " + TempQuery; }
+			else { FullQuery = "(" + TempQuery; }
+		}
+
 		// get the CQP syntax of prefix1 DropLists
 		var TempQuery = GetPrefix1();
 		if(TempQuery)
@@ -449,7 +458,7 @@
 			if(FullQuery) {	FullQuery += " & " + TempQuery; }
 			else { FullQuery = "(" + TempQuery; }
 		}
-
+	
 		// get the CQP syntax of Expansion Textbox
 		var TempQuery = GetExpansion();
 		if(TempQuery)
@@ -562,6 +571,18 @@
 		var TempTextBox = document.getElementById('TargetWordTextbox');
 		if(TempTextBox.value)
 			ReturnValue = "word=\"" + TempTextBox.value + "\"";
+	
+		return ReturnValue;	
+	}
+
+	//read LexiconItem from texbox and return it in CQP syntax
+	function GetLexiconItem()
+	{
+		var ReturnValue = null;
+	
+		var TempTextBox = document.getElementById('LexiconItemTextbox');
+		if(TempTextBox.value)
+			ReturnValue = "lexiconitem=\"" + TempTextBox.value + "\"";
 	
 		return ReturnValue;	
 	}
