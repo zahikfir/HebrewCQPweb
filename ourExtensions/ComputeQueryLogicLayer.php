@@ -360,7 +360,7 @@
 		}
 
 		// get the CQP syntax of sufix DropLists
-		var TempQuery = Getsufix();
+		var TempQuery = Getsuffix();
 		if(TempQuery)
 		{
 			if(FullQuery) { FullQuery += " & " + TempQuery; }
@@ -522,10 +522,10 @@
 	}
 
 	// read sufix from DropList and return it in CQP syntax
-	function Getsufix()
+	function Getsuffix()
 	{
 		var bOneFlagIsOn = false; 	// if all flags are off, return null 
-		var ReturnValue = "sufix=\"";
+		var ReturnValue = "suffix=\"";
 
 		var TempDropList = document.getElementById('sufixSurface');
 		if(TempDropList.value != 'N')	// 'N' is the value of the empty option in the drop down list
