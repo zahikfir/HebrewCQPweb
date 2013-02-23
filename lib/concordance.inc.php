@@ -714,7 +714,7 @@ header('Content-Type: text/html; charset=utf-8');
 		<!-- End of header-wrapper -->
 	</div>
 	<!-- End of wrapper -->
-		<div id="widepage">
+		<span id="widepage">
 			<div id="page-bgtop">
 				<div id="page-bgbtm">
 					<div id="maincontent">
@@ -890,7 +890,7 @@ if ($num_of_solutions_final > 15 && $per_page > 15)
 				<!-- End of page-bgbtm -->
 			</div>
 			<!-- End of page-bgtop -->
-		</div>
+		</span>
 		<!-- End of page -->
 
 
