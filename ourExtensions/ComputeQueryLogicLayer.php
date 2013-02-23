@@ -1,11 +1,29 @@
-<script>
+<!--                                          Compute Query Logic Layer:                                          -->
+<!--                               handles all the logic behind the Compute query GUI                             -->
 
+<!-- calles OnPageReaload() on page realod --> 
+<!-- reset all Textboxes and DropLists, except main query textbox -->
+<body onload="OnPageReaload()">
+
+<script>
 	var MaxTargetWords = 4;											// Defines: max number of words the user can search for
 	var g_iCurrentTargetWordIndex = 0; 								// Index of word that the user is currently editing
 	var g_aTargetWordsArr = new Array(MaxTargetWords);   			// Arr: the target-words the user is searching for
 	var g_aMinWordsBetweenTargets = new Array(MaxTargetWords-1); 	// Arr: Min number of words between target-words (there are X-1 spaces between X words)
 	var g_aMaxWordsBetweenTargets = new Array(MaxTargetWords-1);	// Arr: Max number of words between target-words (there are X-1 spaces between X words)
 
+
+	// called on page realod. reset all Textboxes and DropLists
+	// NOT rest the main query textbox, in case the user pushed the back button in web browser.
+	// allowing the user to go back and make changes to last query without the need to rewrite it again
+	function OnPageReaload()
+	{
+		ResetDropListsMenu();
+		ClearSingleTargetTextboxes();
+		ClearMinMaxWordsBetweenTargetsTextBox(0);
+		ClearMinMaxWordsBetweenTargetsTextBox(1);
+		ClearMinMaxWordsBetweenTargetsTextBox(2);
+	}
 	
 	// main function for the Compute Query GUI menu, called when the "Compute Query" button is pushed 
 	// translates the Query menu and save the result into the global variables
@@ -69,7 +87,8 @@
 	// writing each target word into it single-target-word textboxes
 	function WriteQuery()
 	{
-		ClearQueryTextboxes();
+		ClearMainQueryTextBox();
+		ClearSingleTargetTextboxes();
 		WriteMainQuery();
 		WriteSingleTargetWord();
 	}
@@ -132,13 +151,10 @@
 		g_iCurrentTargetWordIndex = parseInt(iCurrentWord,10); // parsing to int, '10' - decimal base 
 	}
 
-	// clear the main query text box
 	// clear the single target word textboxes
-	function ClearQueryTextboxes()
+	function ClearSingleTargetTextboxes()
 	{
-		var pQueryTextbox = document.getElementById('QueryTextbox');
-		pQueryTextbox.value = "";
-		pQueryTextbox = document.getElementById('SingleTargetWord1Textbox');
+		var pQueryTextbox = document.getElementById('SingleTargetWord1Textbox');
 		pQueryTextbox.value = "";
 		pQueryTextbox = document.getElementById('SingleTargetWord2Textbox');
 		pQueryTextbox.value = "";
@@ -146,6 +162,13 @@
 		pQueryTextbox.value = "";
 		pQueryTextbox = document.getElementById('SingleTargetWord4Textbox');
 		pQueryTextbox.value = "";	
+	}
+
+	// clear the main query text box
+	function ClearMainQueryTextBox()
+	{
+		var pQueryTextbox = document.getElementById('QueryTextbox');
+		pQueryTextbox.value = "";
 	}
 
 	// clear target-word array, max/min word between target-words arrayes, query compute GUI
