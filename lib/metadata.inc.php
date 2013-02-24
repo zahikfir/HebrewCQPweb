@@ -190,6 +190,15 @@ function update_css_path($newpath)
 	$settings->save();
 }
 
+function update_corpus_inverse_numbers($newval)
+{
+	global $corpus_sql_name;
+	$settings = new CQPwebSettings('..');
+	$settings->load($corpus_sql_name);
+	$settings->set_inverseNumbers($newval);
+	$settings->save();
+}
+
 function update_corpus_main_script_is_r2l($newval)
 {
 	global $corpus_sql_name;

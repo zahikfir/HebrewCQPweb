@@ -248,6 +248,11 @@ if (isset($cqpweb_root_url))
 if (!isset($corpus_main_script_is_r2l))
 	$corpus_main_script_is_r2l = false;
 
+if (!isset($corpus_need_inverse_numbers))
+{
+	$corpus_need_inverse_numbers = false;
+}
+
 if (!isset($corpus_uses_case_sensitivity))
 	$corpus_uses_case_sensitivity = false;
 

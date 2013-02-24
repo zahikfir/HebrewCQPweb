@@ -59,6 +59,7 @@ function printquery_corpusoptions()
 	$settings = new CQPwebSettings('..');
 	$settings->load($corpus_sql_name);
 	$r2l = $settings->get_r2l();
+	$needInverse = $settings->get_inverseNumbers();
 	$case_sensitive = $settings->get_case_sens();
 
 
@@ -108,6 +109,25 @@ function printquery_corpusoptions()
 			</tr>
 			<input type="hidden" name="locationAfter" value="index.php?thisQ=corpusSettings&uT=y" />
 			<input type="hidden" name="function" value="update_corpus_main_script_is_r2l" />
+			<input type="hidden" name="uT" value="y" />
+		</form>
+		<form action="execute.php" method="get">
+			<tr>
+				<td class="concordgrey" align="center">
+					Reverse Numbers:
+				</td>
+				<td class="concordgeneral" align="center">
+					<select name="args">
+						<option value="0" <?php echo ($needInverse ? '' : 'selected="selected"'); ?>>No</option>
+						<option value="1" <?php echo ($needInverse ? 'selected="selected"' : ''); ?>>Yes</option>
+					</select>
+				</td>
+				<td class="concordgeneral" align="center">
+					<input type="submit" value="Update" />
+				</td>
+			</tr>
+			<input type="hidden" name="locationAfter" value="index.php?thisQ=corpusSettings&uT=y" />
+			<input type="hidden" name="function" value="update_corpus_inverse_numbers" />
 			<input type="hidden" name="uT" value="y" />
 		</form>
 		<form action="execute.php" method="get">

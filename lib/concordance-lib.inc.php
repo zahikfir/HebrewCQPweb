@@ -851,8 +851,13 @@ $xml_after_string =  ' ' . htmlspecialchars($xml_after_array[$i]);
 	/* extra step needed because otherwise a space may get linkified */
 	if ($type == 'node')
 		$main_string = trim($main_string);
-
-	return array('<Transparent>י</Transparent><bdo dir="rtl">'. $main_string.'</bdo><Transparent>י</Transparent>', $other_string);
+	global $corpus_need_inverse_numbers;
+	if ($corpus_need_inverse_numbers)
+	{
+		$main_string = '<bdo dir="rtl">'. $main_string.'</bdo>';
+	}
+	$main_string = '<Transparent>י</Transparent>'. $main_string. '<Transparent>י</Transparent>';
+	return array($main_string , $other_string);
 }
 
 /** Pass in the (printed) line number, get back a relative URL to the context page. */
