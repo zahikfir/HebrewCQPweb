@@ -9,7 +9,7 @@
 	<!--  Single target word table -->
 	<table align="center">
 		<tr>
-			<td><button type="button" onclick="ChangeCurrentWord(0)">First Word</button></td>
+			<td><button type="button" id='ChangeCurrentWordButton1' onclick="ChangeCurrentWord(0)">First Word</button></td>
 			<td><button type="button" onclick="ClearTargetWord(0)">Clear</button></td>
 			<td><input type='text' id='SingleTargetWord1Textbox' style="width:600px" disabled/></td>
 		</tr>
@@ -21,7 +21,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><button type="button" onclick="ChangeCurrentWord(1)">Second Word</button></td>
+			<td><button type="button" id='ChangeCurrentWordButton2' onclick="ChangeCurrentWord(1)">Second Word</button></td>
 			<td><button type="button" onclick="ClearTargetWord(1)">Clear</button></td>
 			<td><input type='text' id='SingleTargetWord2Textbox' style="width:600px" disabled/></td>
 		</tr>
@@ -33,7 +33,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><button type="button" onclick="ChangeCurrentWord(2)">Third Word</button></td>
+			<td><button type="button" id='ChangeCurrentWordButton3' onclick="ChangeCurrentWord(2)">Third Word</button></td>
 			<td><button type="button" onclick="ClearTargetWord(2)">Clear</button></td>
 			<td><input type='text' id='SingleTargetWord3Textbox' style="width:600px" disabled/></td>
 		</tr>
@@ -45,7 +45,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><button type="button" onclick="ChangeCurrentWord(3)">Forth Word</button></td>
+			<td><button type="button" id='ChangeCurrentWordButton4' onclick="ChangeCurrentWord(3)">Forth Word</button></td>
 			<td><button type="button" onclick="ClearTargetWord(3)">Clear</button></td>
 			<td><input type='text' id='SingleTargetWord4Textbox' style="width:600px" disabled/></td>
 		</tr>

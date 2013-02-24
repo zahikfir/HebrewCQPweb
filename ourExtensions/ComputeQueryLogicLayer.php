@@ -41,6 +41,7 @@
 	// allowing the user to go back and make changes to last query without the need to rewrite it again
 	function OnPageReaload()
 	{
+		ChangeCurrentWordButtonsEffect(0);
 		ResetDropListsMenu();
 		ClearAllUserInputTextBoxes();
 		ClearSingleTargetTextboxes();
@@ -48,7 +49,7 @@
 		ClearMinMaxWordsBetweenTargetsTextBox(1);
 		ClearMinMaxWordsBetweenTargetsTextBox(2);
 	}
-	
+
 	// combined with <input type='text' onkeypress="return isNumberKey(event)"/> 
 	// creates textbox that allows only number to be writen into it
 	function isNumberKey(evt)
@@ -286,9 +287,51 @@
 	// only current word changing when translating the query GUI. 
 	function ChangeCurrentWord(iCurrentWord)
 	{
-		g_iCurrentTargetWordIndex = parseInt(iCurrentWord,10); // parsing to int, '10' - decimal base 
+		g_iCurrentTargetWordIndex = parseInt(iCurrentWord,10); // parsing to int, '10' - decimal base
+		ChangeCurrentWordButtonsEffect(iCurrentWord);
 	}
 
+	// make the current word button appear pressed and paint in red
+	function ChangeCurrentWordButtonsEffect(iCurrentButton)
+	{
+		// paint all buttons in black
+		document.getElementById('ChangeCurrentWordButton1').style.color = 'black';
+		document.getElementById('ChangeCurrentWordButton2').style.color = 'black';
+		document.getElementById('ChangeCurrentWordButton3').style.color = 'black';
+		document.getElementById('ChangeCurrentWordButton4').style.color = 'black';
+
+		// make all buttons appear unpressed 
+		document.getElementById('ChangeCurrentWordButton1').style.borderStyle = '';
+		document.getElementById('ChangeCurrentWordButton2').style.borderStyle = '';
+		document.getElementById('ChangeCurrentWordButton3').style.borderStyle = '';
+		document.getElementById('ChangeCurrentWordButton4').style.borderStyle = '';  
+
+		// make the current word button appear pressed and paint in red
+		switch(iCurrentButton)
+		{
+		case 0:
+			document.getElementById('ChangeCurrentWordButton1').style.color = 'red';
+			document.getElementById('ChangeCurrentWordButton1').style.borderStyle = 'inset';
+			break;
+		case 1:
+			document.getElementById('ChangeCurrentWordButton2').style.color = 'red';
+			document.getElementById('ChangeCurrentWordButton2').style.borderStyle = 'inset';
+			break;
+		case 2:
+			document.getElementById('ChangeCurrentWordButton3').style.color = 'red';
+			document.getElementById('ChangeCurrentWordButton3').style.borderStyle = 'inset';
+			break;
+		case 3:
+			document.getElementById('ChangeCurrentWordButton4').style.color = 'red';
+			document.getElementById('ChangeCurrentWordButton4').style.borderStyle = 'inset';
+			break;
+		default:
+			document.getElementById('ChangeCurrentWordButton1').style.color = 'red';
+			document.getElementById('ChangeCurrentWordButton1').style.borderStyle = 'inset';
+			break;
+		}	
+	}
+	
 	// update global variable arrays with the max/min words between target-words
 	// arr[0] between targets 1-2, arr[1] between targets 2-3, arr[2] between targets 3-4, 
 	function UpdateMinMaxWordsBetweenTargets()
