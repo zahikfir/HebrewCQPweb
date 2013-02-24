@@ -54,7 +54,7 @@ function printquery_search()
 		$select_qmode = ($corpus_uses_case_sensitivity ? 'sq_case' : 'sq_nocase');
 
 ?>
-<table class="concordtable">
+<table class="concordtable" align="center">
 
 	<tr>
 		<th class="concordtable">Standard Query</th>
@@ -72,22 +72,8 @@ function printquery_search()
 			&nbsp;<br/>
 			
 			<table>	
-				<tr><td class="basicbox">Query mode:</td>
-				
-				<td class="basicbox">
-					<select name="qmode">
-						<option value="cqp"<?php if ($select_qmode == 'cqp') echo ' selected="selected"';?>>
-							CQP syntax
-						</option>
-					</select>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a target="_blank" href="../doc/MilaXMLSpecification.xlsx"
-						onmouseover="return escape('What all those letters and signs means?')">
-						HebrewCQP Query Syntax
-					</a>
-				</td></tr>
-			
-				<tr><td class="basicbox">Number of hits per page:</td>
+				<tr>				
+				<td class="basicbox">Number of hits per page:</td>
 				
 				<td class="basicbox">	
 					<select name="pp">
@@ -107,15 +93,26 @@ function printquery_search()
 							echo '<option value="all">show all</option>';
 						?>
 					</select>
-				</td></tr>
+				</td>
 
 				<input type="hidden" name="del" size="-1" value="end" />			
-				<tr>
+				
 					<td class="basicbox">&nbsp;</td>
 					<td class="basicbox">				
 						<input type="submit" value="Start Query"/>
-						<input type="reset" value="Reset Query"/>
 					</td>
+					<td class="basicbox">
+					<select hidden="true" name="qmode">
+						<option value="cqp"<?php if ($select_qmode == 'cqp') echo ' selected="selected"';?>>
+							CQP syntax
+						</option>
+					</select>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a target="_blank" href="../doc/MilaXMLSpecification.xlsx"
+						onmouseover="return escape('What all those letters and signs means?')">
+						HebrewCQP Query Syntax
+					</a>
+				</td>
 				</tr>
 			</table>
 					
