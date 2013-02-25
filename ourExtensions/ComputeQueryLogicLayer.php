@@ -31,8 +31,7 @@
 			UpdateMinMaxWordsBetweenTargets();
 			TranslateComputeQueryGUI();
 			WriteQuery();
-			ResetDropListsMenu();
-			ClearAllUserInputTextBoxes();
+			//ClearUserMenu();
 		}
 	}
 	
@@ -41,10 +40,9 @@
 	// allowing the user to go back and make changes to last query without the need to rewrite it again
 	function OnPageReaload()
 	{
-		ChangeCurrentWordButtonsEffect(0);
-		ResetDropListsMenu();
-		ClearAllUserInputTextBoxes();
+		//ClearUserMenu();
 		ClearSingleTargetTextboxes();
+		ChangeCurrentWordButtonsEffect(0);	
 		ClearMinMaxWordsBetweenTargetsTextBox(0);
 		ClearMinMaxWordsBetweenTargetsTextBox(1);
 		ClearMinMaxWordsBetweenTargetsTextBox(2);
@@ -211,8 +209,7 @@
 		ClearMinMaxWordsBetweenTargetsTextBox(0);
 		ClearMinMaxWordsBetweenTargetsTextBox(1);
 		ClearMinMaxWordsBetweenTargetsTextBox(2);
-		ResetDropListsMenu();
-		ClearAllUserInputTextBoxes();
+		ClearUserMenu();
 		WriteQuery();
 	}
 
