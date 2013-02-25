@@ -54,17 +54,18 @@
 	<br/>
 	<br/>
 	<table align ="center">
-	<tr align ="center"><td>
-	<button type="button" onclick="AppandOperatorAnd()"> '&' (And) </button>
-	<button type="button" onclick="AppandOperatorOr()"> '|' (Or) </button>
-	<button type="button" onclick="AppendOpenBracket()"> '(' (OpenBracket) </button>
-	<button type="button" onclick="AppandCloseBracket()"> ')' (CloseBracket) </button>
-	</td></tr>
-	<tr align ="center"><td>
-	<button type="button" onclick="ClearAll()"> Clear-all </button>
-	<button type="button" onclick="ComputeQuery()" style="width: 150px; height: 40px; font:20px bold italic ;">Compute Query</button>
-	<button type="button" onclick="ClearUserMenu()"> Reset menu </button>
-	</td></tr>
+		<tr align ="center"><td>
+			<button type="button" onclick="AppendOpenBracket()"> '(' (OpenBracket) </button>
+			<button type="button" onclick="AppandOperatorAnd()"> '&' (And) </button>
+			<button type="button" onclick="AppandOperatorOr()"> '|' (Or) </button>
+			<button type="button" onclick="AppandOperatorNot()"> '!' (Not) </button>
+			<button type="button" onclick="AppandCloseBracket()"> ')' (CloseBracket) </button>
+		</td></tr>
+		<tr align ="center"><td>
+			<button type="button" onclick="ClearAll()"> Clear-all </button>
+			<button type="button" onclick="ComputeQuery()" style="width: 150px; height: 40px; font:20px bold italic ;">Compute Query</button>
+			<button type="button" onclick="ClearUserMenu()"> Reset menu </button>
+		</td></tr>
 	</table>
 
 	<!-- Word annotations table -->
@@ -527,7 +528,9 @@
 			</select>
 		</td>
 	</tr>
-	
+	<tr>
+		<td><button type="button" onclick="AppandNoPrefixes()"> No Prefixes </button></td>
+	</tr>	
 
 </table>
 	
@@ -600,7 +603,7 @@
 				<option value="e">singular and plural</option>
 			</select>
 		</td>
-	</tr>	
+	</tr>
 </table>
 
 <table class="concordtable">

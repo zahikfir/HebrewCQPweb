@@ -417,6 +417,28 @@
 		WriteQuery();
 	}
 
+	// appanding the operator Not '!' to current word
+	// writing the query again at the end, so the user can see the effect immediately 
+	function AppandOperatorNot()
+	{ 
+		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += " !";
+		else
+			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = " !";
+		WriteQuery();
+	}
+
+	// appanding no prefixes to current word (all prefixes = 'NNN')  
+	// writing the query again at the end, so the user can see the effect immediately 
+	function AppandNoPrefixes()
+	{ 
+		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += " & (prefix1=\"NNN\" & prefix2=\"NNN\" & prefix3=\"NNN\" & prefix4=\"NNN\" & prefix5=\"NNN\" & prefix6=\"NNN\")";
+		else
+			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = "(prefix1=\"NNN\" & prefix2=\"NNN\" & prefix3=\"NNN\" & prefix4=\"NNN\" & prefix5=\"NNN\" & prefix6=\"NNN\")";
+		WriteQuery();
+	}
+	
 	// this function gets all the data from the DropLists in CQP syntax and inserts it to the global variable
 	function TranslateComputeQueryGUI()
 	{
