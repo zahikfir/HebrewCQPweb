@@ -970,7 +970,7 @@ function create_text_metadata_for_minimalist()
 	/* note, size of text_id is 50 to allow possibility of non-decoded UTF8 - they should be shorter */
 	$create_statement = "create table `text_metadata_for_$corpus_sql_name`(
 		`text_id` varchar(50) NOT NULL,
-		`words` INTEGER NOT NULL default '0',
+		`words` BIGINT UNSIGNED NOT NULL default '0',
 		`cqp_begin` BIGINT UNSIGNED NOT NULL default '0',
 		`cqp_end` BIGINT UNSIGNED NOT NULL default '0',
 		primary key (text_id)
