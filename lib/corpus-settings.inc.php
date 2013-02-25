@@ -35,6 +35,7 @@ class CQPwebSettings
 	
 	/* these ones must be boolean */
 	private $corpus_main_script_is_r2l;
+	private $corpus_need_inverse_numbers;
 	private $corpus_uses_case_sensitivity;
 	
 	/* context controlled by an int and a string (disallow_nonwords is used on the latter); 
@@ -84,6 +85,10 @@ class CQPwebSettings
 	public function get_r2l() { return $this->corpus_main_script_is_r2l; }
 	public function set_r2l($new_value) { $this->corpus_main_script_is_r2l = (bool) $new_value; }
 
+	public function get_inverseNumbers() { return $this->corpus_need_inverse_numbers; }
+	public function set_inverseNumbers($new_value) { $this->corpus_need_inverse_numbers = (bool) $new_value; }
+	
+	
 	public function get_case_sens() { return $this->corpus_uses_case_sensitivity; }
 	public function set_case_sens($new_value) { $this->corpus_uses_case_sensitivity = (bool) $new_value; }
 
@@ -193,6 +198,8 @@ class CQPwebSettings
 			$this->css_path = $css_path;
 		if (isset($corpus_main_script_is_r2l))
 			$this->corpus_main_script_is_r2l = (bool)$corpus_main_script_is_r2l;
+		if (isset($corpus_need_inverse_numbers))
+			$this->corpus_need_inverse_numbers = (bool)$corpus_need_inverse_numbers;
 		if (isset($corpus_uses_case_sensitivity))
 			$this->corpus_uses_case_sensitivity = (bool)$corpus_uses_case_sensitivity;
 		if (isset($context_scope))
@@ -239,6 +246,8 @@ class CQPwebSettings
 		/* variables that are only written if they are present */
 		if (isset($this->corpus_main_script_is_r2l))
 			$data .= "\$corpus_main_script_is_r2l = " . ($this->corpus_main_script_is_r2l ? 'true' : 'false') . ";\n";
+		if (isset($this->corpus_need_inverse_numbers))
+			$data .= "\$corpus_need_inverse_numbers = " . ($this->corpus_need_inverse_numbers ? 'true' : 'false') . ";\n";
 		if (isset($this->corpus_uses_case_sensitivity))
 			$data .= "\$corpus_uses_case_sensitivity = " . ($this->corpus_uses_case_sensitivity ? 'true' : 'false') . ";\n";
 		

@@ -208,7 +208,7 @@ $nodeCount = count($node);
 
 //$word_extraction_pattern = (empty($primary_tag_handle) ? false : '/\A(.*)\/(.*?)\z/');
 
-$line_breaker = ($corpus_main_script_is_r2l 
+$line_breaker = ($corpus_main_script_is_r2l && $corpus_need_inverse_numbers
 							? "</bdo>\n<br/>&nbsp;<br/>\n<bdo dir=\"rtl\">" 
 							: '<br/>&nbsp;<br/>
 				');
@@ -262,8 +262,8 @@ for ($i = 0; $i < $rcCount; $i++)
 }
 
 /* tags for Arabic, etc.: */
-$bdo_tag1 = ($corpus_main_script_is_r2l ? '<bdo dir="rtl">' : '');
-$bdo_tag2 = ($corpus_main_script_is_r2l ? '</bdo>' : '');
+$bdo_tag1 = (($corpus_main_script_is_r2l && $corpus_need_inverse_numbers) ? '<bdo dir="rtl">' : '');
+$bdo_tag2 = (($corpus_main_script_is_r2l && $corpus_need_inverse_numbers) ? '</bdo>' : '');
 
 
 
