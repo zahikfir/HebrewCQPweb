@@ -87,7 +87,7 @@
 	<table class="concordtable">
 	<th class="concordtable" style="font-size: 24px;" align="left">Base</th>
 	<tr>
-		<td>base type: </td>
+		<td>POS: </td>
 		<td>
 			<select name="BaseBaseType" id="BaseBaseType" onchange="SetOptionsOfBaseTypeDropList(this.value)" >
 				<option value="N"></option>
