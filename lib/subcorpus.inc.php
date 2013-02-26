@@ -942,17 +942,44 @@ function populate_corpus_cqp_positions()
 
 	$cqp->execute("A = <text> [] expand to text");
 	$lines = $cqp->execute("tabulate A match, matchend, match text_id");
+	
+	//Saving the text_id name
+	$text_id_name = "";
+	$text_id_beginIndex = -1;
+	$text_id_endIndex = -1;
 	foreach ($lines as &$a)
 	{
 		$item = explode("\t", $a);
-		/* Doing a mysql query inside a loop would be much more efficient if we could
-		 * use a prepared query - but, alas, we don't want to require the more recent
-		 * versions of the mysql server that enable this (or, indeed, PHP's mysqli 
-		 * extension that supports it) */
-		do_mysql_query("update text_metadata_for_$corpus_sql_name
-			set cqp_begin = {$item[0]}, cqp_end = {$item[1]}
-			where text_id = '{$item[2]}'");
+		
+		//if a new subtext
+		if ($text_id_name != $item[2])
+		{
+			//Not first time
+			if ($text_id_name != "")
+			{
+				/* Doing a mysql query inside a loop would be much more efficient if we could
+				 * use a prepared query - but, alas, we don't want to require the more recent
+				* versions of the mysql server that enable this (or, indeed, PHP's mysqli
+						* extension that supports it) */
+				do_mysql_query("update text_metadata_for_$corpus_sql_name
+				set cqp_begin = {$text_id_beginIndex}, cqp_end = {$text_id_endIndex}
+				where text_id = '{$text_id_name}'");
+			}
+			
+			$text_id_name = $item[2];
+			$text_id_beginIndex = $item[0];
+			$text_id_endIndex = $item[1];
+		}
+		else 
+		{
+			//Not a new subtext - just update the end index
+			$text_id_endIndex = $item[1];
+		}
 	}
+	do_mysql_query("update text_metadata_for_$corpus_sql_name
+	set cqp_begin = {$text_id_beginIndex}, cqp_end = {$text_id_endIndex}
+	where text_id = '{$text_id_name}'");
+	
 	unset($lines);
 
 	/* update word counts for each text 

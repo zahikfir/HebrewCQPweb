@@ -75,7 +75,7 @@ function corpus_make_freqtables()
 	do_mysql_query($sql_query);
 
 	$sql_query = "CREATE TABLE $temp_tablename (
-		freq int(11) unsigned default NULL";
+		freq bigint(20) default NULL";
 	foreach ($attribute as $att)
 		$sql_query .= ",
 			$att varchar(210) NOT NULL";
@@ -136,7 +136,7 @@ function corpus_make_freqtables()
 		do_mysql_query("DROP TABLE if exists $sql_tablename");
 
 		$sql_query = "CREATE TABLE $sql_tablename (
-			freq int(11) unsigned default NULL,
+			freq bigint(20) default NULL,
 			item varchar(210) NOT NULL,
 			primary key (item)
 			) CHARACTER SET utf8 COLLATE $corpus_sql_collation";
@@ -283,7 +283,7 @@ function subsection_make_freqtables($subcorpus = 'no_subcorpus', $restriction = 
 		
 		/* create the table */
 		$sql_query = "create table $att_sql_name (
-			freq int(11) unsigned default NULL,
+			freq bigint(20) default NULL,
 			item varchar(210) NOT NULL,
 			key(item)
 			) CHARACTER SET utf8 COLLATE $corpus_sql_collation";
