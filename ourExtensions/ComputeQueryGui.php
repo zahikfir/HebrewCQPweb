@@ -66,6 +66,9 @@
 			<button type="button" onclick="ComputeQuery()" style="width: 150px; height: 40px; font:20px bold italic ;">Compute Query</button>
 			<button type="button" onclick="ClearUserMenu()"> Reset menu </button>
 		</td></tr>
+		<tr align ="center"><td>
+			<button type="button" onclick="UndoLastCompute()"> Undo </button>
+		</td></tr>
 	</table>
 
 	<!-- Word annotations table -->

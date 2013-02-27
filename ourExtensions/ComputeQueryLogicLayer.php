@@ -13,33 +13,37 @@
 <script>
 	var MaxTargetWords = 4;											// Defines: max number of words the user can search for
 	var g_iCurrentTargetWordIndex = 0; 								// Index of word that the user is currently editing
-	var g_aTargetWordsArr = new Array(MaxTargetWords);   			// Arr: the target-words the user is searching for
+	var g_aTargetWordsArr = new Array(MaxTargetWords);  			// Arr: the target-words the user is searching for
+	var g_ArrForUndoAction = new Array(MaxTargetWords);				// the last query compute for undo button
 	var g_aMinWordsBetweenTargets = new Array(MaxTargetWords-1); 	// Arr: Min number of words between target-words (there are X-1 spaces between X words)
 	var g_aMaxWordsBetweenTargets = new Array(MaxTargetWords-1);	// Arr: Max number of words between target-words (there are X-1 spaces between X words)
 
+	
 
 	// main function for the Compute Query GUI menu, called when the "Compute Query" button is pushed 
 	// translates the Query menu and save the result into the global variables
 	// reset the menu and write the new query into the main query textbox
 	function ComputeQuery()
-	{
-		// check global variables aren't null 
-		if( !(g_aMaxWordsBetweenTargets && g_aMaxWordsBetweenTargets && g_aTargetWordsArr) )
-			alert("Sorry Somthing Is wrong with ComputeQuery()");
-		else
-		{				
-			UpdateMinMaxWordsBetweenTargets();
-			TranslateComputeQueryGUI();
-			WriteQuery();
-			//ClearUserMenu();
-		}
+	{			
+		UpdateMinMaxWordsBetweenTargets();
+		TranslateComputeQueryGUI();
+		WriteQuery();
+		//ClearUserMenu();
 	}
+
+	function CheckGlobalVariablesInit()
+	{
+		return (g_aMaxWordsBetweenTargets && g_aMaxWordsBetweenTargets && g_ArrForUndoAction && g_aTargetWordsArr);
+	}
+
 	
 	// called on page realod. reset all Textboxes and DropLists
 	// NOT rest the main query textbox, in case the user pushed the back button in web browser.
 	// allowing the user to go back and make changes to last query without the need to rewrite it again
 	function OnPageReaload()
 	{
+		if(!CheckGlobalVariablesInit())
+			alert("OnPageReaload() : Somthing is Wrong with GlobalVariables");
 		//ClearUserMenu();
 		ClearSingleTargetTextboxes();
 		ChangeCurrentWordButtonsEffect(0);	
@@ -115,9 +119,13 @@
 		for(var ii=0;ii<MaxTargetWords;ii++)
 		{	
 			// write the target-word if exists 	
-			if(g_aTargetWordsArr[ii])
+			if(g_ArrForUndoAction[ii] && g_aTargetWordsArr[ii])
+				pQueryTextbox.value += ("[" + g_aTargetWordsArr[ii] + g_ArrForUndoAction[ii] + "] ");
+			else if (g_aTargetWordsArr[ii])
 				pQueryTextbox.value += ("[" + g_aTargetWordsArr[ii] + "] ");
-	
+			else if (g_ArrForUndoAction[ii])
+				pQueryTextbox.value += ("[" + g_ArrForUndoAction[ii] + "] ");
+				
 			// print the min&max word between target-words if exists	
 			if(ii <MaxTargetWords-1) 	// (there are X-1 spaces between X words)
 			{
@@ -141,20 +149,36 @@
 	function WriteSingleTargetWord()
 	{
 		var pQueryTextbox = document.getElementById('SingleTargetWord1Textbox');
-		if(g_aTargetWordsArr[0])
+		if(g_ArrForUndoAction[0] && g_aTargetWordsArr[0])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[0] + g_ArrForUndoAction[0] + "] ");
+		else if (g_aTargetWordsArr[0])
 			pQueryTextbox.value += ("[" + g_aTargetWordsArr[0] + "] ");
+		else if (g_ArrForUndoAction[0])
+			pQueryTextbox.value += ("[" + g_ArrForUndoAction[0] + "] ");
 	
 		pQueryTextbox = document.getElementById('SingleTargetWord2Textbox');
-		if(g_aTargetWordsArr[1])
+		if(g_ArrForUndoAction[1] && g_aTargetWordsArr[1])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[1] + g_ArrForUndoAction[1] + "] ");
+		else if (g_aTargetWordsArr[1])
 			pQueryTextbox.value += ("[" + g_aTargetWordsArr[1] + "] ");
+		else if (g_ArrForUndoAction[1])
+			pQueryTextbox.value += ("[" + g_ArrForUndoAction[1] + "] ");
 	
 		pQueryTextbox = document.getElementById('SingleTargetWord3Textbox');
-		if(g_aTargetWordsArr[2])
+		if(g_ArrForUndoAction[2] && g_aTargetWordsArr[2])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[2] + g_ArrForUndoAction[2] + "] ");
+		else if (g_aTargetWordsArr[2])
 			pQueryTextbox.value += ("[" + g_aTargetWordsArr[2] + "] ");
+		else if (g_ArrForUndoAction[2])
+			pQueryTextbox.value += ("[" + g_ArrForUndoAction[2] + "] ");
 	
 		pQueryTextbox = document.getElementById('SingleTargetWord4Textbox');
-		if(g_aTargetWordsArr[3])
-			pQueryTextbox.value += ("[" + g_aTargetWordsArr[3] + "] ");	
+		if(g_ArrForUndoAction[3] && g_aTargetWordsArr[3])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[3] + g_ArrForUndoAction[3] + "] ");
+		else if (g_aTargetWordsArr[3])
+			pQueryTextbox.value += ("[" + g_aTargetWordsArr[3] + "] ");
+		else if (g_ArrForUndoAction[3])
+			pQueryTextbox.value += ("[" + g_ArrForUndoAction[3] + "] ");
 	}
 </script>
 
@@ -176,6 +200,14 @@
 		pQueryTextbox.value = "";	
 	}
 
+	// undo last compute, delete g_ArrForUndoAction[g_iCurrentTargetWordIndex]
+	// writing the query again at the end, so the user can see the effect immediately
+	function UndoLastCompute()
+	{
+		g_ArrForUndoAction[g_iCurrentTargetWordIndex] = null;	
+		WriteQuery();
+	}
+	
 	// clear all the user input textboxes
 	function ClearAllUserInputTextBoxes()
 	{
@@ -199,7 +231,8 @@
 	{
 		for(var ii=0;ii<MaxTargetWords;ii++) 
 		{ 
-			g_aTargetWordsArr[ii] = null; 
+			g_ArrForUndoAction[ii] = null; 
+			g_aTargetWordsArr[ii] = null;
 		}
 		for(var ii=0;ii<(MaxTargetWords-1);ii++)
 		{	
@@ -216,6 +249,7 @@
 	// clear current target-word, max/min word between current target-word, query compute GUI
 	function ClearTargetWord(Index)
 	{
+		g_ArrForUndoAction[Index] = null;
 		g_aTargetWordsArr[Index] = null;
 
 		// clear max/min word between current target-word and the target-word before
@@ -374,10 +408,17 @@
 	// writing the query again at the end, so the user can see the effect immediately
 	function AppendOpenBracket() 
 	{ 
-		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += "(";
+		if(g_ArrForUndoAction[g_iCurrentTargetWordIndex])
+		{
+			if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] += g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			else
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] = g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = "(";
+			
+		}
 		else
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = "(";
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = "(";
 		WriteQuery();
 	}
 
@@ -385,10 +426,17 @@
 	// writing the query again at the end, so the user can see the effect immediately
 	function AppandCloseBracket()
 	{ 
-		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += ")";
+		if(g_ArrForUndoAction[g_iCurrentTargetWordIndex])
+		{
+			if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] += g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			else
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] = g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = ")";
+			
+		}
 		else
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = ")";
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = ")";
 		WriteQuery();
 	} 
 
@@ -396,10 +444,17 @@
 	// writing the query again at the end, so the user can see the effect immediately
 	function AppandOperatorOr()
 	{ 
-		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += " | ";
+		if(g_ArrForUndoAction[g_iCurrentTargetWordIndex])
+		{
+			if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] += g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			else
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] = g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = " | ";
+			
+		}
 		else
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = " | ";
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = " | ";
 		WriteQuery();
 	} 
 
@@ -407,10 +462,17 @@
 	// writing the query again at the end, so the user can see the effect immediately 
 	function AppandOperatorAnd()
 	{ 
-		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += " & ";
+		if(g_ArrForUndoAction[g_iCurrentTargetWordIndex])
+		{
+			if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] += g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			else
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] = g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = " & ";
+			
+		}
 		else
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = " & ";
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = " & ";
 		WriteQuery();
 	}
 
@@ -418,10 +480,17 @@
 	// writing the query again at the end, so the user can see the effect immediately 
 	function AppandOperatorNot()
 	{ 
-		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += " !";
+		if(g_ArrForUndoAction[g_iCurrentTargetWordIndex])
+		{
+			if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] += g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			else
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] = g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = " !";
+			
+		}
 		else
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = " !";
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = " !";
 		WriteQuery();
 	}
 
@@ -429,10 +498,17 @@
 	// writing the query again at the end, so the user can see the effect immediately 
 	function AppandNoPrefixes()
 	{ 
-		if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] += " & (prefix1=\"NNN\" & prefix2=\"NNN\" & prefix3=\"NNN\" & prefix4=\"NNN\" & prefix5=\"NNN\" & prefix6=\"NNN\")";
+		if(g_ArrForUndoAction[g_iCurrentTargetWordIndex])
+		{
+			if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] += g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			else
+				{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] = g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = " & (prefix1=\"NNN\" & prefix2=\"NNN\" & prefix3=\"NNN\" & prefix4=\"NNN\" & prefix5=\"NNN\" & prefix6=\"NNN\")";
+			
+		}
 		else
-			g_aTargetWordsArr[g_iCurrentTargetWordIndex] = "(prefix1=\"NNN\" & prefix2=\"NNN\" & prefix3=\"NNN\" & prefix4=\"NNN\" & prefix5=\"NNN\" & prefix6=\"NNN\")";
+			g_ArrForUndoAction[g_iCurrentTargetWordIndex] = "(prefix1=\"NNN\" & prefix2=\"NNN\" & prefix3=\"NNN\" & prefix4=\"NNN\" & prefix5=\"NNN\" & prefix6=\"NNN\")";
 		WriteQuery();
 	}
 	
@@ -613,10 +689,16 @@
 		if(FullQuery)
 		{
 			FullQuery += ")";
-			if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
-				g_aTargetWordsArr[g_iCurrentTargetWordIndex] += FullQuery;
+			if(g_ArrForUndoAction[g_iCurrentTargetWordIndex])
+			{
+				if(g_aTargetWordsArr[g_iCurrentTargetWordIndex])
+					{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] += g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+				else
+					{ g_aTargetWordsArr[g_iCurrentTargetWordIndex] = g_ArrForUndoAction[g_iCurrentTargetWordIndex]; }
+				g_ArrForUndoAction[g_iCurrentTargetWordIndex] = FullQuery;
+			}
 			else
-				g_aTargetWordsArr[g_iCurrentTargetWordIndex] = FullQuery;
+				g_ArrForUndoAction[g_iCurrentTargetWordIndex] = FullQuery;
 		}
 	} 	
 </script>
