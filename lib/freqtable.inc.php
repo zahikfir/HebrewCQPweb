@@ -309,7 +309,6 @@ function subsection_make_freqtables($subcorpus = 'no_subcorpus', $restriction = 
 	$sql_query = "insert into saved_freqtables (
 			freqtable_name,
 			corpus,
-			user,
 			restrictions,
 			subcorpus,
 			create_time,
@@ -317,7 +316,6 @@ function subsection_make_freqtables($subcorpus = 'no_subcorpus', $restriction = 
 		) values (
 			'$freqtables_base_name',
 			'$corpus_sql_name',
-			'$username',
 			'" . mysql_real_escape_string($restriction) . "',
 			'$subcorpus',
 			$thistime,
@@ -341,7 +339,6 @@ function subsection_make_freqtables($subcorpus = 'no_subcorpus', $restriction = 
 	return array (
 		'freqtable_name' => $freqtables_base_name,
 		'corpus' => $corpus_sql_name,
-		'user' => $username,
 		'restrictions' => $restriction,
 		'subcorpus' => $subcorpus,
 		'create_time' => $thistime,
@@ -457,8 +454,7 @@ function check_freqtable_subcorpus($subcorpus_name)
 	$subcorpus_name = mysql_real_escape_string($subcorpus_name);
 	
 	$sql_query = "select * from saved_freqtables 
-		where corpus = '$corpus_sql_name' 
-		and user = '$username' 
+		where corpus = '$corpus_sql_name'
 		and subcorpus = '$subcorpus_name'";
 	$result = do_mysql_query($sql_query);
 
@@ -671,7 +667,7 @@ function list_freqtabled_subcorpora()
 	global $username;
 
 	$sql_query = "select subcorpus from saved_freqtables 
-		where corpus = '$corpus_sql_name' and user = '$username' and subcorpus != 'no_subcorpus'";
+		where corpus = '$corpus_sql_name' and subcorpus != 'no_subcorpus'";
 	$result = do_mysql_query($sql_query);
 
 	$list = array();
@@ -695,7 +691,7 @@ function get_subcorpus_freqtable($subcorpus)
 	$subcorpus = mysql_real_escape_string($subcorpus);
 	
 	$sql_query = "select freqtable_name from saved_freqtables 
-		where corpus = '$corpus_sql_name' and user = '$username' and subcorpus = '$subcorpus'";
+		where corpus = '$corpus_sql_name' and subcorpus = '$subcorpus'";
 	$result = do_mysql_query($sql_query);
 	
 	if (mysql_num_rows($result) < 1)

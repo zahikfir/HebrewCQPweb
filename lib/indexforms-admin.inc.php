@@ -1739,7 +1739,7 @@ function printquery_showfreqtables()
 
 	<?php
 	
-	$sql_query = "SELECT freqtable_name, user, ft_size, restrictions, subcorpus, create_time,
+	$sql_query = "SELECT freqtable_name, ft_size, restrictions, subcorpus, create_time,
 		public
 		FROM saved_freqtables WHERE corpus = '$corpus_sql_name' order by create_time desc";
 		

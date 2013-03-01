@@ -935,7 +935,7 @@ function user_is_superuser($username)
 {
 	/* superusers are determined in the config file */
 	global $superuser_username;
-	
+		
 	$a = explode('|', $superuser_username);
 	
 	return in_array($username, $a);

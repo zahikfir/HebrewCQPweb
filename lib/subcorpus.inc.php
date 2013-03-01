@@ -63,15 +63,14 @@ function create_subcorpus_list($subcorpus_name, $text_list)
 	/* overwrite check must be performed before this */
 	$sql_query = "DELETE FROM saved_subcorpora 
 		WHERE subcorpus_name = '$subcorpus_name'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	do_mysql_query($sql_query);
 
 	$text_list = mysql_real_escape_string($text_list);
 	
-	$sql_query = "INSERT INTO saved_subcorpora (subcorpus_name, corpus, user, text_list, numfiles, numwords)
+	$sql_query = "INSERT INTO saved_subcorpora (subcorpus_name, corpus, text_list, numfiles, numwords)
 		values 
-		('$subcorpus_name', '$corpus_sql_name', '$username', '$text_list', '$numfiles', '$numwords')";
+		('$subcorpus_name', '$corpus_sql_name', '$text_list', '$numfiles', '$numwords')";
 	do_mysql_query($sql_query);
 }
 
@@ -95,16 +94,15 @@ function create_subcorpus_restrictions($subcorpus_name, $restrictions)
 	/* overwrite check must be performed before this */
 	$sql_query = "DELETE FROM saved_subcorpora 
 		WHERE subcorpus_name = '$subcorpus_name'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	do_mysql_query($sql_query);
 	
 	$subcorpus_name = mysql_real_escape_string($subcorpus_name);
 	$restrictions = mysql_real_escape_string($restrictions);
 	
-	$sql_query = "INSERT INTO saved_subcorpora (subcorpus_name, corpus, user, restrictions, numfiles, numwords)
+	$sql_query = "INSERT INTO saved_subcorpora (subcorpus_name, corpus, restrictions, numfiles, numwords)
 		values 
-		('$subcorpus_name', '$corpus_sql_name', '$username', '$restrictions', '$numfiles', '$numwords')";
+		('$subcorpus_name', '$corpus_sql_name', '$restrictions', '$numfiles', '$numwords')";
 	do_mysql_query($sql_query);
 }
 
@@ -176,8 +174,7 @@ function subcorpus_change_restrictions_to_list($subcorpus_name)
 
 	$sql_query = "select * from saved_subcorpora
 		WHERE subcorpus_name = '$subcorpus_name'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	$result = do_mysql_query($sql_query);
 	
 	if (mysql_num_rows($result) < 1)
@@ -196,8 +193,7 @@ function subcorpus_change_restrictions_to_list($subcorpus_name)
 	
 	$sql_query = "update saved_subcorpora set restrictions = '', text_list = '$list'
 		WHERE subcorpus_name = '$subcorpus_name'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	do_mysql_query($sql_query);
 }
 
@@ -274,8 +270,7 @@ function subcorpus_alter_text_list($subcorpus, $new_list)
 	$sql_query = "update saved_subcorpora 
 		SET restrictions = NULL, text_list = '$new_list', numfiles = $numfiles, numwords = $numwords 
 		WHERE subcorpus_name = '$subcorpus'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	do_mysql_query($sql_query);
 }
 
@@ -292,8 +287,7 @@ function subcorpus_get_text_list($subcorpus)
 			
 	$sql_query = "select restrictions, text_list from saved_subcorpora
 		WHERE subcorpus_name = '$subcorpus'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	$result = do_mysql_query($sql_query);
 	
 	if (mysql_num_rows($result) < 1)
@@ -342,8 +336,7 @@ function subcorpus_based_on_restrictions($subcorpus)
 
 	$sql_query = "select restrictions, text_list from saved_subcorpora
 		WHERE subcorpus_name = '$subcorpus'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	$result = do_mysql_query($sql_query);
 	
 	if (mysql_num_rows($result) < 1)
@@ -384,8 +377,7 @@ function subcorpus_sizeof($subcorpus)
 	
 	$sql_query = "select numwords, numfiles from saved_subcorpora
 		WHERE subcorpus_name = '$subcorpus'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	$result = do_mysql_query($sql_query);
 	
 	if (mysql_num_rows($result) < 1)
@@ -420,7 +412,7 @@ function get_list_of_subcorpora()
 	global $corpus_sql_name;
 
 	$result = do_mysql_query("select subcorpus_name from saved_subcorpora 
-								where user='$username' and corpus='$corpus_sql_name'");
+								where corpus='$corpus_sql_name'");
 	for ($list = array() ; false !== ($r = mysql_fetch_row($result)) ; )
 		$list[] = $r[0];
 	
@@ -474,8 +466,7 @@ function delete_subcorpus($subcorpus_name)
 	/* finally, delete the subcorpus record itself */
 	$sql_query = "delete from saved_subcorpora  
 		where subcorpus_name = '$subcorpus_name'
-		and corpus = '$corpus_sql_name' 
-		and user = '$username'
+		and corpus = '$corpus_sql_name'
 		LIMIT 1";
 	do_mysql_query($sql_query);
 }
@@ -516,8 +507,7 @@ function load_subcorpus_to_cqp($subcorpus)
 			
 	$sql_query = "select restrictions, text_list from saved_subcorpora
 		WHERE subcorpus_name = '$subcorpus'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	$result = do_mysql_query($sql_query);
 	
 	if (mysql_num_rows($result) < 1)
@@ -726,15 +716,14 @@ function save_last_restrictions_as_subcorpus($restrictions)
 
 	$sql_query = "DELETE FROM saved_subcorpora 
 		WHERE subcorpus_name = '__last_restrictions'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	do_mysql_query($sql_query);
 	
 	$restrictions = mysql_real_escape_string($restrictions);
 	
-	$sql_query = "INSERT INTO saved_subcorpora (subcorpus_name, corpus, user, restrictions, numfiles, numwords)
+	$sql_query = "INSERT INTO saved_subcorpora (subcorpus_name, corpus, restrictions, numfiles, numwords)
 		values 
-		('__last_restrictions', '$corpus_sql_name', '$username', '$restrictions', '$numfiles', '$numwords')";
+		('__last_restrictions', '$corpus_sql_name', '$restrictions', '$numfiles', '$numwords')";
 	do_mysql_query($sql_query);
 }
 */
@@ -748,8 +737,7 @@ function reload_last_restrictions()
 
 	$sql_query = "SELECT restrictions from saved_subcorpora
 		WHERE subcorpus_name = '__last_restrictions'
-		AND corpus = '$corpus_sql_name'
-		AND user = '$username'";
+		AND corpus = '$corpus_sql_name'";
 	$result = do_mysql_query($sql_query);
 	$row = mysql_fetch_row($result);
 

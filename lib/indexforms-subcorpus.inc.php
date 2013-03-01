@@ -26,9 +26,8 @@
 
 /* each of these functions prints a table for the right-hand side interface */
 
-
 /* this is fundamentally a redirecting function */
-function printquery_subcorpus()
+function printquery_subcorpus($username)
 {
 
 	if(!isset($_GET['subcorpusFunction']))
@@ -54,7 +53,9 @@ function printquery_subcorpus()
 	switch($function)
 	{
 	case 'list_subcorpora':
-		print_sc_newform();
+		if (user_is_superuser($username)){
+			print_sc_newform();
+		}
 		print_sc_showsubcorpora();
 		break;
 	
@@ -515,7 +516,7 @@ function print_sc_define_invert()
 
 
 	$sql_query = "select subcorpus_name, numwords, numfiles from saved_subcorpora
-		where corpus = '$corpus_sql_name' and user = '$username' order by subcorpus_name";
+		where corpus = '$corpus_sql_name' order by subcorpus_name";
 	$result = do_mysql_query($sql_query);
 
 
@@ -605,10 +606,6 @@ function print_sc_showsubcorpora()
 	global $default_history_per_page;	/* the same variable used for query history is used here */
 	global $corpus_sql_name;
 
-	if (user_is_superuser($username))
-	{
-		// 	TODO -- "Show subcorpora of all users"	link in title bar
-	}
 	?>
 	<table class="concordtable" width="100%">
 		<tr>
@@ -627,7 +624,7 @@ function print_sc_showsubcorpora()
 
 
 		$sql_query = "select subcorpus_name, numwords, numfiles from saved_subcorpora
-			where corpus = '$corpus_sql_name' and user = '$username' order by subcorpus_name";
+			where corpus = '$corpus_sql_name' order by subcorpus_name";
 		$result = do_mysql_query($sql_query);
 				
 		$subcorpora_with_freqtables = list_freqtabled_subcorpora();
@@ -1028,7 +1025,7 @@ function print_sc_list_of_files()
 	
 	
 	$sql_query = "select subcorpus_name from saved_subcorpora
-		where corpus = '$corpus_sql_name' and user = '$username' order by subcorpus_name";
+		where corpus = '$corpus_sql_name'  order by subcorpus_name";
 	$result = do_mysql_query($sql_query);
 	$subcorpus_options = "\n";
 	while ( ($r= mysql_fetch_row($result)) != false)

@@ -1557,12 +1557,11 @@ function cqpweb_mysql_recreate_tables()
 		"CREATE TABLE `saved_subcorpora` (
 			`subcorpus_name` varchar(200) NOT NULL,
 			`corpus` varchar(20) NOT NULL,
-			`user` varchar(30) default NULL,
 			`restrictions` text character set utf8 collate utf8_bin,
 			`text_list` text character set utf8 collate utf8_bin,
 			`numfiles` mediumint(8) unsigned default NULL,
 			`numwords` bigint(21) unsigned default NULL,
-			key(`corpus`, `user`),
+			key(`corpus`),
 			key(`text_list`(256))
 	) CHARACTER SET utf8 COLLATE utf8_general_ci";
 	
@@ -1580,7 +1579,6 @@ function cqpweb_mysql_recreate_tables()
 		"CREATE TABLE `saved_freqtables` (
 			`freqtable_name` varchar(150),
 			`corpus` varchar(20) NOT NULL,
-			`user` varchar(30) default NULL,
 			`restrictions` text character set utf8 collate utf8_bin,
 			`subcorpus` varchar(200) NOT NULL,
 			`create_time` int(11) default NULL,

@@ -315,8 +315,7 @@ function get_freq_index_postitionlist_for_subsection($subcorpus = 'no_subcorpus'
 		/* a subcorpus has been named: check that it exists */
 		$sql_query = "select * from saved_subcorpora where subcorpus_name = '"
 			. mysql_real_escape_string($subcorpus) . "' 
-			and corpus = '$corpus_sql_name'
-			and user   = '$username'";
+			and corpus = '$corpus_sql_name'";
 		$result = do_mysql_query($sql_query);
 		if (mysql_num_rows($result) < 1)
 			exiterror_arguments($subcorpus, 'This subcorpus doesn\'t appear to exist!',

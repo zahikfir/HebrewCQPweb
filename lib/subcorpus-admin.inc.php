@@ -348,14 +348,12 @@ case 'copy':
 	
 	$sql_query = "insert into saved_subcorpora select * from saved_subcorpora 
 		where subcorpus_name = '$old_subcorpus_name'
-		and corpus = '$corpus_sql_name' 
-		and user = '$username'";
+		and corpus = '$corpus_sql_name'";
 	do_mysql_query($sql_query);
 
 	$sql_query = "update saved_subcorpora set subcorpus_name = '$subcorpus_name'
 		where subcorpus_name = '$old_subcorpus_name' 
 		and corpus = '$corpus_sql_name' 
-		and user = '$username' 
 		LIMIT 1";
 	do_mysql_query($sql_query);
 	

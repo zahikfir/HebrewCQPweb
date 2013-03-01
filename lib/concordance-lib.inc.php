@@ -91,8 +91,7 @@ function amount_of_text_searched($subcorpus, $restrictions)
 	{
 		$sql_query = "select numwords, numfiles from saved_subcorpora
 			WHERE subcorpus_name = '$subcorpus'
-			AND corpus = '$corpus_sql_name'
-			AND user = '$username'";
+			AND corpus = '$corpus_sql_name'";
 
 		$result = do_mysql_query($sql_query);
 				

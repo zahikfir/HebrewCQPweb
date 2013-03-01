@@ -529,9 +529,7 @@ function printquery_keywords()
 	<tr>
 		<td class="concordgrey" colspan="4">
 			<center>
-				Keyword lists are compiled by comparing frequency lists you have 
-				created for different subcorpora. <a href="index.php?thisQ=subcorpus&uT=y">
-				Click here to create/view subcorpus frequency lists</a>.
+				Keyword lists are compiled by comparing frequency lists different subcorpora.
 			</center>
 		</td>
 	</tr>
@@ -712,8 +710,7 @@ function printquery_freqlist()
 		<td class="concordgrey" colspan="2">
 			<center>
 				You can view the frequency lists of the whole corpus and frequency lists for 
-				subcorpora you have created. <a href="index.php?thisQ=subcorpus&uT=y">Click 
-				here to create/view subcorpus frequency lists</a>.
+				subcorpora.
 			</center>
 		</td>
 	</tr>

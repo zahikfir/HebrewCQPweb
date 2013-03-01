@@ -186,9 +186,9 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 							break;
 							
 						case 'subcorpus':
-							printquery_subcorpus();
+							printquery_subcorpus($username);
 							break;
-						
+							
 						case 'corpusMetadata':
 							printquery_corpusmetadata();
 							break;
@@ -287,7 +287,6 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 								<?php
 								echo print_menurow_index('history', 'Query history');
 								echo print_menurow_index('savedQs', 'Saved queries');
-								echo print_menurow_index('subcorpus', 'Create/edit subcorpora');
 								?>
 							</ul>
 						</li>
@@ -304,39 +303,8 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 									echo "View corpus metadata</a></li>";
 									
 									
-									/* print a link to a corpus manual, if there is one */
-									$sql_query = "select external_url from corpus_metadata_fixed "
-										. "where corpus = '$corpus_sql_name' and external_url IS NOT NULL";
-									$result = do_mysql_query($sql_query);
-									if (mysql_num_rows($result) < 1)
-										echo '<li><a class="menuCurrentItem">Corpus documentation</a></li>';
-									else
-									{
-										$row = mysql_fetch_row($result);
-										echo '<li><a target="_blank" class="menuItem" href="'
-											. $row[0] . '" onmouseover="return escape(\'Info on ' . addcslashes($corpus_title, '\'')
-											. ' on the web\')">' . 'Corpus documentation</a></li>';
-									}
 									unset($result);
 									unset($row);
-									
-									
-									/* print a link to each tagset for which an external_url is declared in metadata */
-									$sql_query = "select description, tagset, external_url from annotation_metadata "
-										. "where corpus = '$corpus_sql_name' and external_url IS NOT NULL";
-									$result = do_mysql_query($sql_query);
-									
-									while (($row = mysql_fetch_assoc($result)) != false)
-									{
-										if ($row['external_url'] != '')
-											echo '<li><a target="_blank" class="menuItem" href="'
-												. $row['external_url'] . '" onmouseover="return escape(\'' . $row['description']
-												. ': view documentation\')">' . $row['tagset'] . '</a></li>';
-									}
-									unset($result);
-									unset($row);
-									
-									
 									
 									/* these are the super-user options */
 									if (user_is_superuser($username))
@@ -353,6 +321,7 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 									
 									echo print_menurow_index('corpusSettings', 'Corpus settings');
 									echo print_menurow_index('manageMetadata', 'Manage metadata');
+									echo print_menurow_index('subcorpus', 'Create/edit subcorpora');
 									echo print_menurow_index('cachedQueries', 'Cached queries');
 									echo print_menurow_index('cachedDatabases', 'Cached databases');
 									echo print_menurow_index('cachedFrequencyLists', 'Cached frequency lists');
@@ -360,7 +329,6 @@ echo '<link rel="stylesheet" type="text/css" href="' . $css_path . '" />';
 								} /* end of "if user is a superuser" */
 								
 								?>
-								</ul>
 							</ul>
 						</li>
 						<li>
