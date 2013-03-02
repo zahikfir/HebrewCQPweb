@@ -108,7 +108,7 @@ function printquery_search()
 						</option>
 					</select>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a target="_blank" href="../doc/MilaXMLSpecification.xlsx"
+					<a target="_blank" href="../doc/Query syntax.pdf"
 						onmouseover="return escape('What all those letters and signs means?')">
 						HebrewCQP Query Syntax
 					</a>
